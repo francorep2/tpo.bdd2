@@ -5,34 +5,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import com.tpo.bdd2.tpo.bdd2.enums.PoiTypes;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
-@NoArgsConstructor
 @Node
-@Document(collection = "Client")
-public class Client {
+@NoArgsConstructor
+@Document(collection = "Points_of_Interest")
+public class Poi {
 
     @Id
-    @Field("Client_ID")
-    private Long clientId;
+    @Field("POI_ID")
+    private Long poiId;
 
-    @Field("name")
-    private String name;
-
-    @Field("last_name")
-    private String lastName;
-
-    @Field("email")
-    private String email;
-
-    @Field("phone")
-    private String phone;
-
-    @Field("address")
-    private Address address;
+    @Field("Name")
+    private PoiTypes poiTypes;
 
 }

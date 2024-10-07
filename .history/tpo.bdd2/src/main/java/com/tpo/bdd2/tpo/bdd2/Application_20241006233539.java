@@ -3,7 +3,6 @@ package com.tpo.bdd2.tpo.bdd2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @EnableMongoRepositories(basePackages = "com.tpo.bdd2.tpo.bdd2.repository.mongo")
 @EnableNeo4jRepositories(basePackages = "com.tpo.bdd2.tpo.bdd2.repository.neo4j")
 @SpringBootApplication

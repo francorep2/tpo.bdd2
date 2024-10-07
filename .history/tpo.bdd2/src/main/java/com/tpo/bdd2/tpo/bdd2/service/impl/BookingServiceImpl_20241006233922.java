@@ -16,6 +16,7 @@ import com.tpo.bdd2.tpo.bdd2.repository.mongo.BookingRepository;
 import com.tpo.bdd2.tpo.bdd2.repository.mongo.ClientRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IBookingService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,10 +27,10 @@ public class BookingServiceImpl implements IBookingService{
     private ClientRepository clientRepository;
 
     @Autowired
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
 
     @Autowired
-    private AppMapper mapper;
+    private final AppMapper mapper;
 
     @Override
     public BookingDTO createBooking(BookingDTO bookingDTO) {

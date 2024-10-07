@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tpo.bdd2.tpo.bdd2.domain.HotelDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
+import com.tpo.bdd2.tpo.bdd2.model.Hotel;
+import com.tpo.bdd2.tpo.bdd2.model.Room;
 import com.tpo.bdd2.tpo.bdd2.service.IHotelService;
 
 @RestController
@@ -58,12 +60,12 @@ public class HotelRestController {
     }
 
     @GetMapping
-    public List<HotelDTO> getAllHotels(){
+    public List<Hotel> getAllHotels(){
         return hotelService.getAllHotels();
     }
 
     @GetMapping("/{hotelId}/rooms")
-    public List<RoomDTO> getAllRoomsByHotelId(@PathVariable Long hotelId){
+    public List<Room> getAllRoomsByHotelId(@PathVariable Long hotelId){
         return hotelService.getAllRoomsByHotelId(hotelId);
     }
 

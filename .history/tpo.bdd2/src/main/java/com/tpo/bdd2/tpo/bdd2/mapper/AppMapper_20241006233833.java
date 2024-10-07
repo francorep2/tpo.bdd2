@@ -26,6 +26,7 @@ import com.tpo.bdd2.tpo.bdd2.model.Room;
 
 
 @Mapper(componentModel = "spring")
+
 public interface AppMapper {
 
     AppMapper INSTANCE = Mappers.getMapper(AppMapper.class);

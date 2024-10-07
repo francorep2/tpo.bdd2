@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.neo4j.core.schema.Node;
 
 import com.tpo.bdd2.tpo.bdd2.enums.CityAreasTypes;
 
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
-@Node
 @NoArgsConstructor
 @Document(collection = "Hotels")
 public class Hotel {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tpo.bdd2.tpo.bdd2.domain.ClientDTO;
+import com.tpo.bdd2.tpo.bdd2.model.Client;
 import com.tpo.bdd2.tpo.bdd2.service.IClientService;
 
 @RestController
@@ -45,8 +46,8 @@ public class ClientRestController {
     }
 
     @GetMapping
-    List<ClientDTO> getAllClient(){
-        return clientService.getAllClients();
+    List<Client> getAllClient(){
+        return clientService.getAllClient();
     }
 
 }

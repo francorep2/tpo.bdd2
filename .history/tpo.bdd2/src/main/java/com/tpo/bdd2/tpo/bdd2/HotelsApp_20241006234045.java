@@ -7,10 +7,10 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @EnableMongoRepositories(basePackages = "com.tpo.bdd2.tpo.bdd2.repository.mongo")
 @EnableNeo4jRepositories(basePackages = "com.tpo.bdd2.tpo.bdd2.repository.neo4j")
 @SpringBootApplication
-public class Application {
+public class HotelsApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(HotelsApp.class, args);
 		System.err.println("START");
 	}
 

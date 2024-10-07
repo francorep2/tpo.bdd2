@@ -1,7 +1,5 @@
 package com.tpo.bdd2.tpo.bdd2.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
+import com.tpo.bdd2.tpo.bdd2.model.Room;
 import com.tpo.bdd2.tpo.bdd2.service.IRoomService;
 
 @RestController
@@ -45,7 +44,7 @@ public class RoomRestController {
     }
 
     @GetMapping
-    public List<RoomDTO> getAllRooms(){
+    public Room getAllRooms(){
         return roomService.getAllRooms();
     }
 
