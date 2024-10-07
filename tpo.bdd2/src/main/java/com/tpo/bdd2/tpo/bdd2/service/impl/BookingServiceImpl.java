@@ -31,13 +31,16 @@ public class BookingServiceImpl implements IBookingService{
     @Autowired
     private AppMapper mapper;
 
+    @Autowired
+    private ClientNeo4jRepoitory clientNeo4jRepoitory;
+
     @Override
     public BookingDTO createBooking(BookingDTO bookingDTO) {
-        Optional<Client> clientOptional = clientRepository.findById(bookingDTO.getClientId());
+        Optional<Client> clientOptional = clientNeo4jRepository.findById(bookingDTO.getClientId());
         if (!clientOptional.isPresent()) {
             throw new ClientNotFoundException();
         }
-
+        
         Optional<Booking> bookingOptional = bookingRepository.findById(bookingDTO.getBookingId());
         if (bookingOptional.isPresent()) {
             throw new BookingAlreadyExistsException("Booking already exist");
