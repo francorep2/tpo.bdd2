@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<tpo.bdd2>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.tpo.bdd2.tpo.bdd2.Application",
+            "projectName": "tpo.bdd2",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

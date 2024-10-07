@@ -1,0 +1,38 @@
+{
+    "netbeans.jdkhome": "c:\\Program Files\\Java\\jdk-17",
+    "netbeans.project.jdkhome": "c:\\Program Files\\Java\\jdk-17",
+    "java.jdt.ls.java.home": "c:\\Program Files\\Java\\jdk-17",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "C:\\Users\\franc\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\8"
+        },
+        {
+            "name": "JavaSE-11",
+            "path": "C:\\Users\\franc\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\11"
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "c:\\Program Files\\Java\\jdk-17",
+            "default": true
+        },
+        {
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Java\\jdk-21"
+        },
+        {
+            "name": "JavaSE-23",
+            "path": "C:\\Users\\franc\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\latest"
+        }
+    ],
+    "terminal.integrated.env.windows": {
+        "PATH": "c:\\Program Files\\Java\\jdk-17\\bin;${env:PATH}",
+        "JAVA_HOME": "c:\\Program Files\\Java\\jdk-17"
+    },
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "JAVA_HOME",
+            "value": "c:\\Program Files\\Java\\jdk-17"
+        }
+    ]
+}
