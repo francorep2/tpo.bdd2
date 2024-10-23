@@ -3,9 +3,10 @@ package com.tpo.bdd2.tpo.bdd2.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import com.tpo.bdd2.tpo.bdd2.enums.CityAreasTypes;
 
@@ -17,35 +18,30 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Node
 @NoArgsConstructor
-@Document(collection = "Hotels")
 public class Hotel {
 
     @Id
-    @Field("Hotel_ID")
+    @GeneratedValue
     private Long id; 
 
-    @Field("name")
     private String name;
 
-    @Field("address")
+    @Relationship(type = "LOCATE_IN")
     private Address address;
 
-    @Field("phone_number")
     private List<String> phone;
 
-    @Field("email")
     private String email;
 
-    @Field("city_areas")
+    @Property
     private CityAreasTypes cityAreas;
 
-    @Field("point_of_interes")
+    @Property
     private List<Poi> poi;
 
-    @Field("rooms")
+    @Relationship(type = "HAVE")
     private List<Room> rooms;
 
-    @Field("Price")
     private double price;
 
 }

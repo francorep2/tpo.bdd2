@@ -11,7 +11,7 @@ import com.tpo.bdd2.tpo.bdd2.exception.ClientAlreadyExistsException;
 import com.tpo.bdd2.tpo.bdd2.exception.ClientNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Client;
-import com.tpo.bdd2.tpo.bdd2.repository.Neo4jRepository.*;
+import com.tpo.bdd2.tpo.bdd2.repository.ClientNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IClientService;
 
 import lombok.extern.slf4j.Slf4j;

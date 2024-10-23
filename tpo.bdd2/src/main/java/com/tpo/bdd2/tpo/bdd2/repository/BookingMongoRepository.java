@@ -1,5 +1,4 @@
-package com.tpo.bdd2.tpo.bdd2.repository.mongo;
-
+package com.tpo.bdd2.tpo.bdd2.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -7,7 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.tpo.bdd2.tpo.bdd2.model.Booking;
 
 @Repository
-public interface BookingRepository extends MongoRepository<Booking, Long> {
-    
+public interface BookingMongoRepository extends MongoRepository<Booking, Long> {
 }
-

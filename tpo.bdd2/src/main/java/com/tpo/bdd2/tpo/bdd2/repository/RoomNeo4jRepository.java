@@ -1,4 +1,4 @@
-package com.tpo.bdd2.tpo.bdd2.repository.neo4j;
+package com.tpo.bdd2.tpo.bdd2.repository;
 
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;

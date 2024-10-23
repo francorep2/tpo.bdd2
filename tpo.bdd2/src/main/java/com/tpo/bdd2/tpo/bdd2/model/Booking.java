@@ -5,7 +5,6 @@ import java.sql.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.neo4j.core.schema.Node;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @NoArgsConstructor
-@Node
 @Document(collection = "Bookings")
 public class Booking {
 

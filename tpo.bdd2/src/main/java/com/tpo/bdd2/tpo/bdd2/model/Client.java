@@ -1,9 +1,9 @@
 package com.tpo.bdd2.tpo.bdd2.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,26 +13,21 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @NoArgsConstructor
 @Node
-@Document(collection = "Client")
 public class Client {
 
     @Id
-    @Field("Client_ID")
+    @GeneratedValue
     private Long clientId;
 
-    @Field("name")
     private String name;
 
-    @Field("last_name")
     private String lastName;
 
-    @Field("email")
     private String email;
 
-    @Field("phone")
     private String phone;
 
-    @Field("address")
+    @Relationship(type = "LIVES_IN")
     private Address address;
 
 }

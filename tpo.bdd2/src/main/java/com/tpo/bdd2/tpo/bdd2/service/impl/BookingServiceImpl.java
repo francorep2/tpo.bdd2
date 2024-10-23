@@ -12,8 +12,8 @@ import com.tpo.bdd2.tpo.bdd2.exception.ClientNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Booking;
 import com.tpo.bdd2.tpo.bdd2.model.Client;
-import com.tpo.bdd2.tpo.bdd2.repository.mongo.BookingRepository;
-import com.tpo.bdd2.tpo.bdd2.repository.mongo.ClientRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.BookingMongoRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.ClientNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IBookingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 public class BookingServiceImpl implements IBookingService{
 
     @Autowired
-    private ClientRepository clientRepository;
-
-    @Autowired
-    private BookingRepository bookingRepository;
+    private BookingMongoRepository bookingMongoRepository;
 
     @Autowired
     private AppMapper mapper;
-
+    
     @Autowired
-    private ClientNeo4jRepoitory clientNeo4jRepoitory;
+    private ClientNeo4jRepository clientNeo4jRepository;
 
     @Override
     public BookingDTO createBooking(BookingDTO bookingDTO) {
@@ -41,14 +38,14 @@ public class BookingServiceImpl implements IBookingService{
             throw new ClientNotFoundException();
         }
         
-        Optional<Booking> bookingOptional = bookingRepository.findById(bookingDTO.getBookingId());
+        Optional<Booking> bookingOptional = bookingMongoRepository.findById(bookingDTO.getBookingId());
         if (bookingOptional.isPresent()) {
             throw new BookingAlreadyExistsException("Booking already exist");
         }
 
         Booking newBooking = mapper.bookingDTOToBooking(bookingDTO);
         newBooking.setBookingCode("BC-" + System.currentTimeMillis());
-        Booking savedBooking = bookingRepository.save(newBooking);
+        Booking savedBooking = bookingMongoRepository.save(newBooking);
 
         log.info("Booking with id {} updated successfully.", bookingDTO.getBookingId());
         return mapper.bookingToBookingDTO(savedBooking);

@@ -29,7 +29,7 @@ public class ClientRestController {
     }
 
     @GetMapping("/{clientId}")
-    public ClientDTO getClientById(Long id){
+    public ClientDTO getClientById(@PathVariable Long id){
         return clientService.getClientById(id);
     }
 

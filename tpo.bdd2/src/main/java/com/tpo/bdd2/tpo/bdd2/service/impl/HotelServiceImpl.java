@@ -12,7 +12,7 @@ import com.tpo.bdd2.tpo.bdd2.exception.HotelAlreadyExistsException;
 import com.tpo.bdd2.tpo.bdd2.exception.HotelNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Hotel;
-import com.tpo.bdd2.tpo.bdd2.repository.mongo.HotelRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.HotelNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IHotelService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,19 +21,19 @@ import lombok.extern.slf4j.Slf4j;
 public class HotelServiceImpl implements IHotelService {
 
     @Autowired
-    private HotelRepository hotelRepository; 
+    private HotelNeo4jRepository hotelneo4jRepository; 
     
     @Autowired
     private AppMapper mapper;
 
     @Override
     public HotelDTO createHotel(HotelDTO hotelDTO) {
-        Optional<Hotel> hotel = hotelRepository.findById(hotelDTO.getId());
+        Optional<Hotel> hotel = hotelneo4jRepository.findById(hotelDTO.getId());
         if (hotel.isPresent()) {
             throw new HotelAlreadyExistsException("Hotel already exists");
         }
         Hotel newHotel = mapper.hotelDTOToHotel(hotelDTO);
-        Hotel savedHotel = hotelRepository.save(newHotel);
+        Hotel savedHotel = hotelneo4jRepository.save(newHotel);
         log.info("Hotel with id {} created successfully.", hotelDTO.getId());
         return mapper.hotelToHotelDTO(savedHotel);
     }
@@ -41,13 +41,13 @@ public class HotelServiceImpl implements IHotelService {
     @Override
     public HotelDTO getHotelById(Long id) {
         log.info("Hotel with id {} returned successfully.", id);
-        return mapper.hotelToHotelDTO(hotelRepository.findById(id)
+        return mapper.hotelToHotelDTO(hotelneo4jRepository.findById(id)
         .orElseThrow(() -> new HotelNotFoundException("Hotel not found")));
     }
 
     @Override
     public HotelDTO updateHotel(Long id, HotelDTO hotelDTO) {
-        Hotel existingHotel = hotelRepository.findById(id)
+        Hotel existingHotel = hotelneo4jRepository.findById(id)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
 
         existingHotel.setName(hotelDTO.getName());
@@ -59,22 +59,22 @@ public class HotelServiceImpl implements IHotelService {
         existingHotel.setPrice(hotelDTO.getPrice());
         existingHotel.setRooms(mapper.roomDTOsToRooms(hotelDTO.getRooms()));
         
-        Hotel updatedHotel = hotelRepository.save(existingHotel);
+        Hotel updatedHotel = hotelneo4jRepository.save(existingHotel);
         log.info("Hotel with id {} updated successfully.", hotelDTO.getId());
         return mapper.hotelToHotelDTO(updatedHotel);
     }
 
     @Override
     public void deleteHotel(Long id) {
-        Hotel hotel = hotelRepository.findById(id)
+        Hotel hotel = hotelneo4jRepository.findById(id)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
-        hotelRepository.delete(hotel);
+            hotelneo4jRepository.delete(hotel);
         log.info("Hotel with id {} deleted successfully.", id);
     }
 
     @Override
     public void addRoomToHotel(Long hotelId, RoomDTO roomDTO) {
-        Hotel hotel = hotelRepository.findById(hotelId)
+        Hotel hotel = hotelneo4jRepository.findById(hotelId)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
 
         hotel.getRooms().add(mapper.roomDTOToRoom(roomDTO));
@@ -83,7 +83,7 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public void removeRoomFromHotel(Long hotelId, Long roomId) {
-        Hotel hotel = hotelRepository.findById(hotelId)
+        Hotel hotel = hotelneo4jRepository.findById(hotelId)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
 
         hotel.getRooms().removeIf(room -> room.getRoomId().equals(roomId));
@@ -94,12 +94,12 @@ public class HotelServiceImpl implements IHotelService {
     @Override
     public List<HotelDTO> getAllHotels() {
         log.info("Returned All Hotels");
-        return mapper.hotelsToHotelDTOs(hotelRepository.findAll());
+        return mapper.hotelsToHotelDTOs(hotelneo4jRepository.findAll());
     }
 
     @Override
     public List<RoomDTO> getAllRoomsByHotelId(Long hotelId) {
-        Hotel hotel = hotelRepository.findById(hotelId)
+        Hotel hotel = hotelneo4jRepository.findById(hotelId)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
 
         log.info("Hotel with id {} returned successfully.", hotelId);

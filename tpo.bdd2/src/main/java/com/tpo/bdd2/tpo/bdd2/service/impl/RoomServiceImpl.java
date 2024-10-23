@@ -10,7 +10,7 @@ import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 import com.tpo.bdd2.tpo.bdd2.exception.RoomNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Room;
-import com.tpo.bdd2.tpo.bdd2.repository.mongo.RoomRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.RoomNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IRoomService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RoomServiceImpl implements IRoomService {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private RoomNeo4jRepository roomNeo4jRepository;
 
     @Autowired
     private AppMapper mapper;
@@ -27,36 +27,36 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public RoomDTO createRoom(RoomDTO roomDTO) {
         Room newRoom = mapper.roomDTOToRoom(roomDTO);
-        Room savedRoom = roomRepository.save(newRoom);
+        Room savedRoom = roomNeo4jRepository.save(newRoom);
         return mapper.roomToRoomDTO(savedRoom);
     }
 
     @Override
     public RoomDTO getRoomById(Long id) {
-        return mapper.roomToRoomDTO(roomRepository.findById(id)
+        return mapper.roomToRoomDTO(roomNeo4jRepository.findById(id)
         .orElseThrow(() -> new RoomNotFoundException("Room not found")));
     }
 
     @Override
     public RoomDTO updateRoom(RoomDTO roomDTO, Long id) {
-        Room updatedRoom = roomRepository.findById(id)
+        Room updatedRoom = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
         
         updatedRoom.setAmenities(mapper.AmenitiesDTOToAmenities(roomDTO.getAmenities()));
-        roomRepository.save(updatedRoom);
+        roomNeo4jRepository.save(updatedRoom);
         return mapper.roomToRoomDTO(updatedRoom);
     }
 
     @Override
     public void deleteRoom(Long id) {
-        Room room = roomRepository.findById(id)
+        Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
-        roomRepository.delete(room);
+            roomNeo4jRepository.delete(room);
     }
 
     @Override
     public List<RoomDTO> getAllRooms() {
-        return roomRepository.findAll()
+        return roomNeo4jRepository.findAll()
             .stream()
             .map(mapper::roomToRoomDTO)
             .collect(Collectors.toList());
