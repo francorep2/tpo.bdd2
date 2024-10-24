@@ -1,6 +1,7 @@
 package com.tpo.bdd2.tpo.bdd2.model;
 
 import java.sql.Date;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,7 +25,7 @@ public class Booking {
     private Long clientId;
 
     @Field("Hotel_ID")
-    private String hotelId;
+    private Long hotelId;
 
     @Field("Booking_Code")
     private String bookingCode;

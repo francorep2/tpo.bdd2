@@ -1,6 +1,7 @@
 package com.tpo.bdd2.tpo.bdd2.domain;
 
 import java.sql.Date;
+import java.util.UUID;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class BookingDTO {
 
     private Long clientId;
 
-    private String hotelId;
+    private Long hotelId;
 
     private String bookingCode;
 

@@ -1,4 +1,6 @@
 package com.tpo.bdd2.tpo.bdd2.domain;
+import java.util.UUID;
+
 import com.tpo.bdd2.tpo.bdd2.model.Address;
 
 import lombok.Data;

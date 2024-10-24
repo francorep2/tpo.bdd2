@@ -42,7 +42,7 @@ public class RoomServiceImpl implements IRoomService {
         Room updatedRoom = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
         
-        updatedRoom.setAmenities(mapper.AmenitiesDTOToAmenities(roomDTO.getAmenities()));
+        updatedRoom.setAmenities(roomDTO.getAmenities());
         roomNeo4jRepository.save(updatedRoom);
         return mapper.roomToRoomDTO(updatedRoom);
     }

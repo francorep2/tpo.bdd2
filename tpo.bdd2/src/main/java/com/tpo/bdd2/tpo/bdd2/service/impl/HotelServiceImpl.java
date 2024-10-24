@@ -52,7 +52,7 @@ public class HotelServiceImpl implements IHotelService {
 
         existingHotel.setName(hotelDTO.getName());
         existingHotel.setAddress(mapper.addressDTOToAddress(hotelDTO.getAddress()));
-        existingHotel.setCityAreas(mapper.cityAreasTypesDTOToCityAreasTypes(hotelDTO.getCityAreas()));
+        existingHotel.setCityAreas(hotelDTO.getCityAreas());
         existingHotel.setEmail(hotelDTO.getEmail());
         existingHotel.setPhone(hotelDTO.getPhone());
         existingHotel.setPoi(mapper.poiDTOsToPois(hotelDTO.getPoi()));
