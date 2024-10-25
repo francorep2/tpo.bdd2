@@ -18,7 +18,6 @@ public class Client {
 
     @Schema(description = "Cliente ID ", example = "1")
     @Id
-    @GeneratedValue
     private Long clientId;
 
     @Schema(description = "Nombre Cliente", example = "John")

@@ -3,7 +3,6 @@ package com.tpo.bdd2.tpo.bdd2.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
@@ -20,8 +19,7 @@ public class Hotel {
 
     @Schema(description = "Hotel ID ", example = "1")
     @Id
-    @GeneratedValue
-    private Long id; 
+    private Long hotelId; 
 
     @Schema(description = "Nombre Hotel", example = "Hotel Name")
     private String name;
@@ -41,7 +39,7 @@ public class Hotel {
 
     @Schema(description = "Puntos de interes Hotel", example = "Hotel poi")
     @Relationship(type = "HAS_POI")
-    private List<Poi> poi;
+    private List<Poi> POI;
 
     @Schema(description = "Habitaciones Hotel", example = "Hotel rooms")
     @Relationship(type = "HAVE")

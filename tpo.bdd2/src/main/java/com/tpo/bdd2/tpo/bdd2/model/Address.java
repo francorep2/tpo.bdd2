@@ -15,7 +15,6 @@ public class Address {
 
     @Schema(description = "Dirreccion ID", example = "1")
     @Id
-    @GeneratedValue
     private Long id; 
 
     @Schema(description = "Calle", example = "Calle falsa")

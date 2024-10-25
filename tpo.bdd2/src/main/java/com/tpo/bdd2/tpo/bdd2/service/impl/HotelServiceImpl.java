@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tpo.bdd2.tpo.bdd2.domain.HotelDTO;
+import com.tpo.bdd2.tpo.bdd2.domain.PoiDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 import com.tpo.bdd2.tpo.bdd2.exception.HotelAlreadyExistsException;
 import com.tpo.bdd2.tpo.bdd2.exception.HotelNotFoundException;
@@ -55,7 +56,7 @@ public class HotelServiceImpl implements IHotelService {
         existingHotel.setCityAreas(hotelDTO.getCityAreas());
         existingHotel.setEmail(hotelDTO.getEmail());
         existingHotel.setPhone(hotelDTO.getPhone());
-        existingHotel.setPoi(mapper.poiDTOsToPois(hotelDTO.getPoi()));
+        existingHotel.setPOI(mapper.poiDTOsToPois(hotelDTO.getPoi()));
         existingHotel.setPrice(hotelDTO.getPrice());
         existingHotel.setRooms(mapper.roomDTOsToRooms(hotelDTO.getRooms()));
         
@@ -114,7 +115,9 @@ public class HotelServiceImpl implements IHotelService {
     }
 
     @Override
-    public List<String> getAllPoiInHotel(Long hotelId) {
-        return hotelneo4jRepository.getAllPoiInHotel(hotelId);
+    public List<PoiDTO> getAllPoiInHotel(Long hotelId) { 
+        List<PoiDTO> pois = mapper.poisToPoiDTOs(hotelneo4jRepository.findPoisByHotelId(hotelId));
+        log.info("Hotel with id {} returned successfully.", hotelId);
+        return null;
     }
 }

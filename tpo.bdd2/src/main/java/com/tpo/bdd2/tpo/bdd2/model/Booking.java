@@ -43,11 +43,12 @@ public class Booking {
     @Field("Check_in_date")
     private LocalDate checkInDate;
 
+    
     @Schema(description = "Fecha de check-out", example = "2024-10-26")
     @Field("Check_out_date")
     private LocalDate checkOutDate;
 
-    @Schema(description = "Precio de la reserva", example = "100.00")
+    @Schema(description = "Precio", example = "4000")
     @Field("Price")
     private double bookingPrice;
 

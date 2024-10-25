@@ -3,6 +3,7 @@ package com.tpo.bdd2.tpo.bdd2.service;
 import java.util.List;
 
 import com.tpo.bdd2.tpo.bdd2.domain.HotelDTO;
+import com.tpo.bdd2.tpo.bdd2.domain.PoiDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 
 public interface IHotelService {
@@ -21,7 +22,7 @@ public interface IHotelService {
 
     List<HotelDTO> getAllHotels();
 
-    List<String> getAllPoiInHotel(Long hotelId);
+    List<PoiDTO> getAllPoiInHotel(Long hotelId);
 
     List<RoomDTO> getAllRoomsByHotelId(Long hotelId);
 

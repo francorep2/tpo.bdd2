@@ -17,7 +17,6 @@ public class Room {
 
     @Schema(description = "Habitacion ID (numero de habitacion) ", example = "1")
     @Id
-    @GeneratedValue
     private Long roomId;
 
     @Schema(description = "Amenities de habitacion", example = "Amenities A")

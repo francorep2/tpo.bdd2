@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tpo.bdd2.tpo.bdd2.domain.HotelDTO;
+import com.tpo.bdd2.tpo.bdd2.domain.PoiDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 import com.tpo.bdd2.tpo.bdd2.service.IHotelService;
 
@@ -96,7 +97,7 @@ public class HotelRestController {
     @Operation(summary = "Obtener todos los POIs de un hotel")
     @ApiResponse(responseCode = "200", description = "POIs encontrados")
     @GetMapping("/pois/{hotelId}")
-    public List<String> getAllPoiInHotel(@PathVariable Long hotelId){
+    public List<PoiDTO> getAllPoiInHotel(@PathVariable Long hotelId){
         return hotelService.getAllPoiInHotel(hotelId);
     }
 

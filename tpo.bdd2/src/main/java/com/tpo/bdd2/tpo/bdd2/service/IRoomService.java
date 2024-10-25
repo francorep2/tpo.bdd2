@@ -25,6 +25,6 @@ public interface IRoomService {
 
     List<String> getAllAmenitiesByRoomId(Long id);
 
-    List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate)
+    List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate);
 
 }
