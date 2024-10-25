@@ -2,6 +2,8 @@
     "netbeans.jdkhome": "c:\\Program Files\\Java\\jdk-17",
     "netbeans.project.jdkhome": "c:\\Program Files\\Java\\jdk-17",
     "java.jdt.ls.java.home": "c:\\Program Files\\Java\\jdk-17",
+    "java.debug.settings.hotCodeReplace": "auto",
+    "java.debug.settings.vmArgs": "--add-opens java.base/java.lang=ALL-UNNAMED",
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-1.8",
@@ -34,5 +36,6 @@
             "environmentVariable": "JAVA_HOME",
             "value": "c:\\Program Files\\Java\\jdk-17"
         }
-    ]
+    ],
+    "files.autoSave": "afterDelay"
 }

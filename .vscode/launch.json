@@ -6,6 +6,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.tpo.bdd2.tpo.bdd2.Application",
+            "vmArgs": "--add-opens java.base/java.lang=ALL-UNNAMED",
             "projectName": "tpo.bdd2",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
