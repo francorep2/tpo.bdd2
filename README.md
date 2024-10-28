@@ -8,7 +8,7 @@ Este proyecto es una aplicación de gestión de reservas y habitaciones utilizan
 
 La documentación de la API está disponible a través de Swagger. Puedes acceder a ella en la siguiente URL:
 
-[Documentación de la API](http://localhost:8080/swagger-ui.html)
+[Documentación de la API](http://localhost:8080/swagger-ui/index.html)
 
 ## Versiones
 
@@ -21,6 +21,8 @@ Asegúrate de tener instalados los siguientes componentes en tu entorno de desar
 - **Java 17** o superior
 - **Maven** para la gestión de dependencias
 - **MongoDB** y **Neo4j** para la base de datos
+- **Agregar en launch.json** : "vmArgs": "--add-opens java.base/java.lang=ALL-UNNAMED"
+
 
 ## Datos para las Bases de Datos
 
