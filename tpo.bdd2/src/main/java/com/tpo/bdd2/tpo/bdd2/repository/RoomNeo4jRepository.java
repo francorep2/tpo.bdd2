@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.tpo.bdd2.tpo.bdd2.model.Room;
 
 @Repository
-public interface RoomNeo4jRepository extends Neo4jRepository<Room, Long> {
+public interface RoomNeo4jRepository extends Neo4jRepository<Room, String> {
 
     @Query("""
         MATCH (r:Room)
@@ -21,5 +21,7 @@ public interface RoomNeo4jRepository extends Neo4jRepository<Room, Long> {
         RETURN r
     """)
     List<Room> findRoomByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    
 }
 

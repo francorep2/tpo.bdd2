@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.tpo.bdd2.tpo.bdd2.model.Booking;
 
 @Repository
-public interface BookingMongoRepository extends MongoRepository<Booking, Long> {
+public interface BookingMongoRepository extends MongoRepository<Booking, String> {
 
 
     @Query("{ 'bookingCode': ?0 }")

@@ -10,21 +10,25 @@ public interface IHotelService {
 
     HotelDTO createHotel(HotelDTO hotelDTO);
 
-    HotelDTO getHotelById(Long id);
+    HotelDTO getHotelById(String id);
 
-    HotelDTO updateHotel(Long id, HotelDTO hotelDTO);
+    HotelDTO updateHotel(String id, HotelDTO hotelDTO);
 
-    void deleteHotel(Long id);
+    void deleteHotel(String id);
 
-    void addRoomToHotel(Long hotelId, RoomDTO roomDTO);
+    void addRoomToHotel(String hotelId, RoomDTO roomDTO);
 
-    void removeRoomFromHotel(Long hotelId, Long roomId);
+    void removeRoomFromHotel(String hotelId, String roomId);
+
+    void addPOIToHotel(String hotelId, PoiDTO poiDTO);
+
+    void removePOIFromHotel(String hotelId, String poiId);
 
     List<HotelDTO> getAllHotels();
 
-    List<PoiDTO> getAllPoiInHotel(Long hotelId);
+    List<PoiDTO> getAllPoiInHotel(String hotelId);
 
-    List<RoomDTO> getAllRoomsByHotelId(Long hotelId);
+    List<RoomDTO> getAllRoomsByHotelId(String hotelId);
 
     List<HotelDTO> getHotelsByPOI(String poiName);
 

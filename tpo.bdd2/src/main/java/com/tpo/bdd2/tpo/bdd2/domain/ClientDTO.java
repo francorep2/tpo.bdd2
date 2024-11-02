@@ -1,6 +1,4 @@
 package com.tpo.bdd2.tpo.bdd2.domain;
-import java.util.UUID;
-
 import com.tpo.bdd2.tpo.bdd2.model.Address;
 
 import lombok.Data;
@@ -10,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClientDTO {
 
-    private Long clientId;
+    private String id;
     private String name;
     private String lastName;
     private String email;

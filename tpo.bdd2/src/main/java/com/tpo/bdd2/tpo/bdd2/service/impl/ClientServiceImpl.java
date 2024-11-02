@@ -11,6 +11,7 @@ import com.tpo.bdd2.tpo.bdd2.exception.ClientAlreadyExistsException;
 import com.tpo.bdd2.tpo.bdd2.exception.ClientNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Client;
+import com.tpo.bdd2.tpo.bdd2.repository.AddressNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.repository.ClientNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IClientService;
 
@@ -26,9 +27,12 @@ public class ClientServiceImpl implements IClientService{
     @Autowired
     private ClientNeo4jRepository clientNeo4jRepository;
 
+    @Autowired
+    private AddressNeo4jRepository addressMeo4jRepository;
+
     @Override
     public ClientDTO createClient(ClientDTO clientDTO) {
-        Optional<Client> existingClient = clientNeo4jRepository.findById(clientDTO.getClientId());
+        Optional<Client> existingClient = clientNeo4jRepository.findById(clientDTO.getId());
         if (existingClient.isPresent()) {
             throw new ClientAlreadyExistsException("Client with email " + clientDTO.getEmail() + " already exists.");
         }
@@ -36,19 +40,19 @@ public class ClientServiceImpl implements IClientService{
         Client newClient = mapper.clientDTOToClient(clientDTO);
         Client savedClient = clientNeo4jRepository.save(newClient);
 
-        log.info("Client with id {} created successfully.", clientDTO.getClientId());
+        log.info("Client with id {} created successfully.", clientDTO.getId());
         return mapper.clientToClientDTO(savedClient);
     }
 
     @Override
-    public ClientDTO getClientById(Long id) {
+    public ClientDTO getClientById(String id) {
         log.info("Client with id {} returned successfully.", id);
         return mapper.clientToClientDTO(clientNeo4jRepository.findById(id)
         .orElseThrow(() -> new ClientNotFoundException("Client not found with id: " + id)));
     }
 
     @Override
-    public ClientDTO updateClient(Long id, ClientDTO clientDTO) {
+    public ClientDTO updateClient(String id, ClientDTO clientDTO) {
         Optional<Client> client = clientNeo4jRepository.findById(id);  
         client.get().setName(clientDTO.getName());
         client.get().setLastName(clientDTO.getLastName());
@@ -61,9 +65,10 @@ public class ClientServiceImpl implements IClientService{
     }
 
     @Override
-    public void deleteClient(Long id) {
+    public void deleteClient(String id) {
         Optional<Client> client = clientNeo4jRepository.findById(id);  
-        clientNeo4jRepository.delete(client.get());
+        clientNeo4jRepository.deleteById(client.get().getId());
+        addressMeo4jRepository.deleteById(client.get().getAddress().getId());
         log.info("Client with id {} deleted successfully.", id);
     }
 

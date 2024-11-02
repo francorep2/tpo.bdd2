@@ -1,7 +1,6 @@
 package com.tpo.bdd2.tpo.bdd2.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,21 +36,21 @@ public class ClientRestController {
     @Operation(summary = "Obtener cliente por ID")
     @ApiResponse(responseCode = "200", description = "Cliente encontrado")
     @GetMapping("/{clientId}")
-    public ClientDTO getClientById(@PathVariable Long id){
+    public ClientDTO getClientById(@PathVariable("clientId") String id){
         return clientService.getClientById(id);
     }
 
     @Operation(summary = "Actualizar cliente")
     @ApiResponse(responseCode = "200", description = "Cliente actualizado")
     @PutMapping("/{clientId}")
-    public ClientDTO updateClient(@PathVariable Long id, @RequestBody ClientDTO clientDTO){
+    public ClientDTO updateClient(@PathVariable("clientId") String id, @RequestBody ClientDTO clientDTO){
         return clientService.updateClient(id, clientDTO);
     }
 
     @Operation(summary = "Eliminar cliente")
     @ApiResponse(responseCode = "204", description = "Cliente eliminado")
     @DeleteMapping("/{clientId}")
-    public ResponseEntity<Void> deleteClient(@PathVariable Long id){
+    public ResponseEntity<Void> deleteClient(@PathVariable("clientId") String id){
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,24 +1,23 @@
 package com.tpo.bdd2.tpo.bdd2.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
-@NoArgsConstructor
+@AllArgsConstructor
 @Node
 public class Client {
 
     @Schema(description = "Cliente ID ", example = "1")
     @Id
-    private Long clientId;
+    private String id;
 
     @Schema(description = "Nombre Cliente", example = "John")
     private String name;

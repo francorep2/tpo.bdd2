@@ -34,12 +34,11 @@ public class BookingServiceImpl implements IBookingService{
 
     @Override
     public BookingDTO createBooking(BookingDTO bookingDTO) {
-        Optional<Client> clientOptional = clientNeo4jRepository.findById(bookingDTO.getClientId());
+        Optional<Client> clientOptional = clientNeo4jRepository.findById(bookingDTO.getBookClientId());
         if (!clientOptional.isPresent()) {
-            throw new ClientNotFoundException();
         }
         
-        Optional<Booking> bookingOptional = bookingMongoRepository.findById(bookingDTO.getBookingId());
+        Optional<Booking> bookingOptional = bookingMongoRepository.findById(bookingDTO.getId());
         if (bookingOptional.isPresent()) {
             throw new BookingAlreadyExistsException("Booking already exist");
         }
@@ -48,13 +47,13 @@ public class BookingServiceImpl implements IBookingService{
         newBooking.setConfirmationNumber("BC-" + System.currentTimeMillis());
         Booking savedBooking = bookingMongoRepository.save(newBooking);
 
-        log.info("Booking with id {} updated successfully.", bookingDTO.getBookingId());
+        log.info("Booking with id {} updated successfully.", bookingDTO.getId());
         return mapper.bookingToBookingDTO(savedBooking);
 
     }
 
     @Override
-    public BookingDTO updateBooking(Long id, BookingDTO bookingDTO) {
+    public BookingDTO updateBooking(String id, BookingDTO bookingDTO) {
         
         Optional<Booking> bookingOptional = bookingMongoRepository.findById(id);
         if (!bookingOptional.isPresent()) {
@@ -66,9 +65,9 @@ public class BookingServiceImpl implements IBookingService{
         booking.setBookingPrice(bookingDTO.getBookingPrice());
         booking.setCheckInDate(bookingDTO.getCheckInDate());
         booking.setCheckOutDate(bookingDTO.getCheckOutDate());
-        booking.setHotelId(bookingDTO.getHotelId());
+        booking.setBookHotelId(bookingDTO.getBookHotelId());
         booking.setBookingDate(bookingDTO.getBookingDate());
-        booking.setClientId(bookingDTO.getClientId());
+        booking.setBookClientId(bookingDTO.getBookClientId());
         
 
         Booking savedBooking = bookingMongoRepository.save(booking);
@@ -78,7 +77,7 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
-    public void deleteBooking(Long id) {
+    public void deleteBooking(String id) {
         Optional<Booking> bookingOptional = bookingMongoRepository.findById(id);
         if (!bookingOptional.isPresent()) {
             throw new ClientNotFoundException();
@@ -89,7 +88,7 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
-    public Booking getBookingById(Long id) {
+    public Booking getBookingById(String id) {
         Optional<Booking> bookingOptional = bookingMongoRepository.findById(id);
         if (!bookingOptional.isPresent()) {
             throw new ClientNotFoundException();
@@ -106,7 +105,7 @@ public class BookingServiceImpl implements IBookingService{
     }
 
     @Override
-    public List<Booking> getBookingsByClientId(Long clientId) {
+    public List<Booking> getBookingsByClientId(String clientId) {
         Optional<Client> clientOptional = clientNeo4jRepository.findById(clientId);
         if (!clientOptional.isPresent()) {
             throw new ClientNotFoundException();

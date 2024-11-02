@@ -37,21 +37,21 @@ public class RoomRestController {
     @Operation(summary = "Obtener habitacion por id")
     @ApiResponse(responseCode = "200", description = "Habitacion encontrada")
     @GetMapping("/{roomId}")
-    public RoomDTO getRoomById(@PathVariable Long id){
+    public RoomDTO getRoomById(@PathVariable("roomId") String id){
         return roomService.getRoomById(id);
     }
 
     @Operation(summary = "Actualizar habitacion")
     @ApiResponse(responseCode = "200", description = "Habitacion actualizada")
     @PutMapping("/{roomId}")
-    public RoomDTO updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable Long id){
+    public RoomDTO updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable("roomId") String id){
         return roomService.updateRoom(roomDTO, id);
     }
 
     @Operation(summary = "Eliminar habitacion")
     @ApiResponse(responseCode = "204", description = "Habitacion eliminada")
     @DeleteMapping("/{roomId}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable Long id){
+    public ResponseEntity<Void> deleteRoom(@PathVariable("roomId") String id){
         roomService.deleteRoom(id);
         return ResponseEntity.noContent().build();
     }
@@ -66,21 +66,21 @@ public class RoomRestController {
     @Operation(summary = "Agregar amenidades a habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades agregadas")
     @PostMapping("/{roomId}/amenities")
-    public RoomDTO addAmenitiesToRoom(@RequestBody List<String> amenities, @PathVariable Long id){
+    public RoomDTO addAmenitiesToRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
         return roomService.addAmenitiesToRoom(amenities, id);
     }
 
     @Operation(summary = "Eliminar amenidades de habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades eliminadas")
     @DeleteMapping("/{roomId}/amenities")
-    public RoomDTO removeAmenitiesFromRoom(@RequestBody List<String> amenities, @PathVariable Long id){
+    public RoomDTO removeAmenitiesFromRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
         return roomService.removeAmenitiesFromRoom(amenities, id);
     }
 
     @Operation(summary = "Actualizar amenidades de habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades actualizadas")
     @PutMapping("/{roomId}/amenities")
-    public RoomDTO updateRoomAmenities(@RequestBody List<String> amenities, @PathVariable Long id){
+    public RoomDTO updateRoomAmenities(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
         return roomService.updateRoomAmenities(amenities, id);
     }
 
@@ -94,7 +94,7 @@ public class RoomRestController {
     @Operation(summary = "Obtener todas las amenidades de habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades encontradas")
     @GetMapping("/{roomId}/amenities")
-    public List<String> getAllAmenitiesByRoomId(@PathVariable Long id){
+    public List<String> getAllAmenitiesByRoomId(@PathVariable("roomId") String id){
         return roomService.getAllAmenitiesByRoomId(id);
     }
 

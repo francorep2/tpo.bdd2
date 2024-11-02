@@ -1,7 +1,7 @@
 package com.tpo.bdd2.tpo.bdd2.domain;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomDTO {
 
-    private Long roomId;
+    private String roomId;
     private List<String> amenities;
-    private boolean isAvaible;
+    private boolean isAvailable;
     private double price;
+    private LocalDate availableFrom;
+    private LocalDate availableUntil;
 
     
 }

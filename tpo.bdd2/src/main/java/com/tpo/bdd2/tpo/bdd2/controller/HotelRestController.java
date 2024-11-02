@@ -38,21 +38,21 @@ public class HotelRestController {
     @Operation(summary = "Obtener Hotel por ID")
     @ApiResponse(responseCode = "200", description = "Hotel encontrado")
     @GetMapping("/{hotelId}")
-    public HotelDTO getHotelById(@PathVariable Long id){
+    public HotelDTO getHotelById(@PathVariable("hotelId") String id){
         return hotelService.getHotelById(id);
     }
 
     @Operation(summary = "Actualizar Hotel")
     @ApiResponse(responseCode = "200", description = "Hotel actualizado")
     @PutMapping("/{hotelId}")
-    public HotelDTO updateHotel(@PathVariable Long id, @RequestBody HotelDTO hotelDTO){
+    public HotelDTO updateHotel(@PathVariable("hotelId") String id, @RequestBody HotelDTO hotelDTO){
         return hotelService.updateHotel(id, hotelDTO);
     }
 
     @Operation(summary = "Eliminar Hotel")
     @ApiResponse(responseCode = "204", description = "Hotel eliminado")
     @DeleteMapping("/{hotelId}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable Long id){
+    public ResponseEntity<Void> deleteHotel(@PathVariable("hotelId") String id){
         hotelService.deleteHotel(id);
         return ResponseEntity.noContent().build();
     }
@@ -60,7 +60,7 @@ public class HotelRestController {
     @Operation(summary = "Agregar habitacion a Hotel")
     @ApiResponse(responseCode = "200", description = "Habitacion agregada")
     @PostMapping("/{hotelId}/rooms")
-    public  ResponseEntity<Void> addRoomToHotel(@PathVariable Long hotelId, @RequestBody RoomDTO roomDTO){
+    public  ResponseEntity<Void> addRoomToHotel(@PathVariable("hotelId") String hotelId, @RequestBody RoomDTO roomDTO){
         hotelService.addRoomToHotel(hotelId, roomDTO);
         return ResponseEntity.ok().build();
     }
@@ -68,7 +68,7 @@ public class HotelRestController {
     @Operation(summary = "Eliminar habitacion de Hotel")
     @ApiResponse(responseCode = "204", description = "Habitacion eliminada")
     @DeleteMapping("/{hotelId}/rooms/{roomId}")
-    public ResponseEntity<Void> removeRoomFromHotel(@PathVariable Long hotelId, @PathVariable Long roomId){
+    public ResponseEntity<Void> removeRoomFromHotel(@PathVariable("hotelId") String hotelId, @PathVariable("roomId") String roomId){
         hotelService.removeRoomFromHotel(hotelId, roomId);
         return ResponseEntity.noContent().build();
     }
@@ -83,13 +83,13 @@ public class HotelRestController {
     @Operation(summary = "Obtener todas las habitaciones de un hotel")
     @ApiResponse(responseCode = "200", description = "Habitaciones encontradas")
     @GetMapping("/{hotelId}/rooms")
-    public List<RoomDTO> getAllRoomsByHotelId(@PathVariable Long hotelId){
+    public List<RoomDTO> getAllRoomsByHotelId(@PathVariable("hotelId") String hotelId){
         return hotelService.getAllRoomsByHotelId(hotelId);
     }
 
     @Operation(summary = "Obtener todos los hoteles por POI")
     @ApiResponse(responseCode = "200", description = "Hoteles encontrados")
-    @GetMapping("/{poiname}")
+    @GetMapping("/by-pois/{poiname}")
     public List<HotelDTO> getHotelsByPOI(@PathVariable String poiname){
         return hotelService.getHotelsByPOI(poiname);
     }
@@ -97,7 +97,7 @@ public class HotelRestController {
     @Operation(summary = "Obtener todos los POIs de un hotel")
     @ApiResponse(responseCode = "200", description = "POIs encontrados")
     @GetMapping("/pois/{hotelId}")
-    public List<PoiDTO> getAllPoiInHotel(@PathVariable Long hotelId){
+    public List<PoiDTO> getAllPoiInHotel(@PathVariable("hotelId") String hotelId){
         return hotelService.getAllPoiInHotel(hotelId);
     }
 

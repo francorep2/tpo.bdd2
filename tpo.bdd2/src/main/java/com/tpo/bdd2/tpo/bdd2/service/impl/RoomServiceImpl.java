@@ -33,13 +33,13 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomDTO getRoomById(Long id) {
+    public RoomDTO getRoomById(String id) {
         return mapper.roomToRoomDTO(roomNeo4jRepository.findById(id)
         .orElseThrow(() -> new RoomNotFoundException("Room not found")));
     }
 
     @Override
-    public RoomDTO updateRoom(RoomDTO roomDTO, Long id) {
+    public RoomDTO updateRoom(RoomDTO roomDTO, String id) {
         Room updatedRoom = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
         
@@ -49,7 +49,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public void deleteRoom(Long id) {
+    public void deleteRoom(String id) {
         Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
             roomNeo4jRepository.delete(room);
@@ -64,7 +64,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomDTO addAmenitiesToRoom(List<String> amenities, Long id) {
+    public RoomDTO addAmenitiesToRoom(List<String> amenities, String id) {
         Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
 
@@ -76,7 +76,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomDTO removeAmenitiesFromRoom(List<String> amenities, Long id) {
+    public RoomDTO removeAmenitiesFromRoom(List<String> amenities, String id) {
         Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
 
@@ -86,7 +86,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public RoomDTO updateRoomAmenities(List<String> amenities, Long id) {
+    public RoomDTO updateRoomAmenities(List<String> amenities, String id) {
         Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
 
@@ -104,7 +104,7 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<String> getAllAmenitiesByRoomId(Long id) {
+    public List<String> getAllAmenitiesByRoomId(String id) {
         Room room = roomNeo4jRepository.findById(id)
             .orElseThrow(() -> new RoomNotFoundException("Room not found with id: " + id));
 

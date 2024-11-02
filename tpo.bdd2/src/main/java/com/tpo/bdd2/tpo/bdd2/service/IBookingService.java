@@ -10,15 +10,15 @@ public interface IBookingService {
 
     BookingDTO createBooking(BookingDTO bookingDTO);
     
-    BookingDTO updateBooking(Long id, BookingDTO bookingDTO);
+    BookingDTO updateBooking(String id, BookingDTO bookingDTO);
     
-    void deleteBooking(Long id);
+    void deleteBooking(String id);
     
-    Booking getBookingById(Long id);
+    Booking getBookingById(String id);
 
     List<Booking> getAllBookings();
 
-    List<Booking> getBookingsByClientId(Long clientId);
+    List<Booking> getBookingsByClientId(String clientId);
 
     List<BookingDTO> findBookingsByConfirmationNumber(String confirmationNumber);
 

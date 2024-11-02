@@ -9,11 +9,11 @@ public interface IClientService {
 
     ClientDTO createClient(ClientDTO clientDTO);
 
-    ClientDTO getClientById(Long id);
+    ClientDTO getClientById(String id);
 
-    ClientDTO updateClient(Long id, ClientDTO clientDTO);
+    ClientDTO updateClient(String id, ClientDTO clientDTO);
 
-    void deleteClient(Long id);
+    void deleteClient(String id);
 
     List<ClientDTO> getAllClients();
 

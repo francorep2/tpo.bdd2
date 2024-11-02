@@ -4,27 +4,30 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Node
 @Data
 @NoArgsConstructor
+@Slf4j
 public class Room {
 
     @Schema(description = "Habitacion ID (numero de habitacion) ", example = "1")
     @Id
-    private Long roomId;
+    private String roomId;
 
     @Schema(description = "Amenities de habitacion", example = "Amenities A")
-    @Relationship("HAS_AMENITIES")
+    @Property
     private List<String> amenities;
 
     @Schema(description = "Disponibilidad", example = "true")
-    private boolean isAvaible;
+    private boolean isAvailable;
 
     @Schema(description = "Precio", example = "1000")
     private double price;
@@ -35,5 +38,4 @@ public class Room {
     @Schema(description = "Disponible hasta", example = "2024-10-30")
     private LocalDate availableUntil;
 
-    
 }

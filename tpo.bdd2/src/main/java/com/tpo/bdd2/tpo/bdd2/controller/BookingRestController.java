@@ -1,7 +1,6 @@
 package com.tpo.bdd2.tpo.bdd2.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +37,14 @@ public class BookingRestController {
     @Operation(summary = "Actualizar reserva por Id")
     @ApiResponse(responseCode = "200", description = "Reserva actualizada")
     @PutMapping("/{bookId}")
-    public BookingDTO updateBooking(@PathVariable Long bookId, @RequestBody BookingDTO bookingDTO) {
+    public BookingDTO updateBooking(@PathVariable("bookId") String bookId, @RequestBody BookingDTO bookingDTO) {
         return bookingService.updateBooking(bookId, bookingDTO);
     }
     
     @Operation(summary = "Eliminar reserva por Id")
     @ApiResponse(responseCode = "204", description = "Reserva eliminada")
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long bookId) {
+    public ResponseEntity<Void> deleteBooking(@PathVariable("bookId") String bookId) {
         bookingService.deleteBooking(bookId);
         return ResponseEntity.noContent().build(); 
     }
@@ -53,7 +52,7 @@ public class BookingRestController {
     @Operation(summary = "Obtener reserva por Id")
     @ApiResponse(responseCode = "200", description = "Reserva encontrada")
     @GetMapping("/{bookId}")
-    public Booking getBookingById(@PathVariable Long bookId) {
+    public Booking getBookingById(@PathVariable("bookId") String bookId) {
         return bookingService.getBookingById(bookId);
     }
 
@@ -67,7 +66,7 @@ public class BookingRestController {
     @Operation(summary = "Obtener reservas por Id cliente")
     @ApiResponse(responseCode = "200", description = "Lista de reservas encontradas")
     @GetMapping("/client/{clientId}") 
-    public List<Booking> getBookingsByClientId(@PathVariable Long clientId) {
+    public List<Booking> getBookingsByClientId(@PathVariable("clientId") String clientId) {
         return bookingService.getBookingsByClientId(clientId);
     }
 
@@ -81,7 +80,7 @@ public class BookingRestController {
     @Operation(summary = "Obtener reservas por ID de huésped")
     @ApiResponse(responseCode = "200", description = "Lista de reservas encontradas")
     @GetMapping("/guest/{guestId}")
-    public List<BookingDTO> findBookingsByGuestId(@PathVariable String guestId) {
+    public List<BookingDTO> findBookingsByGuestId(@PathVariable("guestId") String guestId) {
         return bookingService.findBookingsByGuestId(guestId);
     }
 

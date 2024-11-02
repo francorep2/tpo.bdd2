@@ -7,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
-@NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "Información sobre una reserva")
 @Document(collection = "Bookings")
 public class Booking {
@@ -21,15 +21,15 @@ public class Booking {
     @Schema(description = "ID de reserva", example = "1")
     @Id
     @Field("Booking_ID")
-    private Long bookingId;
+    private String id;
 
     @Schema(description = "ID del cliente", example = "1")
     @Field("Client_ID")
-    private Long clientId;
+    private String bookClientId;
 
     @Schema(description = "ID del hotel", example = "1")
     @Field("Hotel_ID")
-    private Long hotelId;
+    private String bookHotelId;
 
     @Schema(description = "Código de reserva", example = "BC-1111")
     @Field("Code_Confirmation_Number")

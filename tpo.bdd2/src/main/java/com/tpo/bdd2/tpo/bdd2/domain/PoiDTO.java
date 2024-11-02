@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PoiDTO {
 
-    private Long poiId;
+    private String poiId;
     private String poiName;
+    private String poiDescription;
+    private String poiDistance;
     
 }

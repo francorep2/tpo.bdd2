@@ -9,21 +9,21 @@ public interface IRoomService {
 
     RoomDTO createRoom(RoomDTO roomDTO);
 
-    RoomDTO getRoomById(Long id);
+    RoomDTO getRoomById(String id);
 
-    RoomDTO updateRoom(RoomDTO roomDTO, Long id);
+    RoomDTO updateRoom(RoomDTO roomDTO, String id);
 
-    void deleteRoom(Long id);
+    void deleteRoom(String id);
 
     List<RoomDTO> getAllRooms();
 
-    RoomDTO addAmenitiesToRoom(List<String> amenities, Long id);
+    RoomDTO addAmenitiesToRoom(List<String> amenities, String id);
 
-    RoomDTO removeAmenitiesFromRoom(List<String> amenities, Long id);
+    RoomDTO removeAmenitiesFromRoom(List<String> amenities, String id);
 
-    RoomDTO updateRoomAmenities(List<String> amenities, Long id);
+    RoomDTO updateRoomAmenities(List<String> amenities, String id);
 
-    List<String> getAllAmenitiesByRoomId(Long id);
+    List<String> getAllAmenitiesByRoomId(String id);
 
     List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate);
 

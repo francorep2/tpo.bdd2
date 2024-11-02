@@ -3,7 +3,7 @@ package com.tpo.bdd2.tpo.bdd2.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
 import com.tpo.bdd2.tpo.bdd2.domain.AddressDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.BookingDTO;
@@ -21,8 +21,6 @@ import com.tpo.bdd2.tpo.bdd2.model.Room;
 
 @Mapper(componentModel = "spring")
 public interface AppMapper {
-
-    AppMapper INSTANCE = Mappers.getMapper(AppMapper.class);
 
     BookingDTO bookingToBookingDTO(Booking booking);
     Booking bookingDTOToBooking(BookingDTO bookingDTO);
