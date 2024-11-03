@@ -21,10 +21,8 @@ public interface IRoomService {
 
     RoomDTO removeAmenitiesFromRoom(List<String> amenities, String id);
 
-    RoomDTO updateRoomAmenities(List<String> amenities, String id);
-
     List<String> getAllAmenitiesByRoomId(String id);
 
-    List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate);
+    List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId);
 
 }

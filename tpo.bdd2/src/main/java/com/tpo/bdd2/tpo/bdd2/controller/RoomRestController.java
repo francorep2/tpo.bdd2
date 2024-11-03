@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
@@ -66,29 +67,22 @@ public class RoomRestController {
     @Operation(summary = "Agregar amenidades a habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades agregadas")
     @PostMapping("/{roomId}/amenities")
-    public RoomDTO addAmenitiesToRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
-        return roomService.addAmenitiesToRoom(amenities, id);
+    public RoomDTO addAmenitiesToRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String roomId){
+        return roomService.addAmenitiesToRoom(amenities, roomId);
     }
 
     @Operation(summary = "Eliminar amenidades de habitacion")
     @ApiResponse(responseCode = "200", description = "Amenidades eliminadas")
     @DeleteMapping("/{roomId}/amenities")
-    public RoomDTO removeAmenitiesFromRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
-        return roomService.removeAmenitiesFromRoom(amenities, id);
-    }
-
-    @Operation(summary = "Actualizar amenidades de habitacion")
-    @ApiResponse(responseCode = "200", description = "Amenidades actualizadas")
-    @PutMapping("/{roomId}/amenities")
-    public RoomDTO updateRoomAmenities(@RequestBody List<String> amenities, @PathVariable("roomId") String id){
-        return roomService.updateRoomAmenities(amenities, id);
+    public RoomDTO removeAmenitiesFromRoom(@RequestBody List<String> amenities, @PathVariable("roomId") String roomId){
+        return roomService.removeAmenitiesFromRoom(amenities, roomId);
     }
 
     @Operation(summary = "Obtener habitaciones disponibles por rango de fechas")
     @ApiResponse(responseCode = "200", description = "Habitaciones disponibles encontradas")
-    @GetMapping("/available")
-    public List<RoomDTO> findRoomByDateRange(@RequestBody LocalDate startDate, @RequestBody LocalDate endDate){
-        return roomService.findRoomByDateRange(startDate, endDate);
+    @GetMapping("/{hotelId}/room-available")
+    public List<RoomDTO> findRoomByDateRange( @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, @PathVariable("hotelId") String hotelId){
+        return roomService.findRoomByDateRange(startDate, endDate, hotelId);
     }
 
     @Operation(summary = "Obtener todas las amenidades de habitacion")

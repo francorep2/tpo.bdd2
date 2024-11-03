@@ -1,9 +1,9 @@
 package com.tpo.bdd2.tpo.bdd2.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import com.tpo.bdd2.tpo.bdd2.domain.AddressDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.BookingDTO;
@@ -25,8 +25,8 @@ public interface AppMapper {
     BookingDTO bookingToBookingDTO(Booking booking);
     Booking bookingDTOToBooking(BookingDTO bookingDTO);
 
-    HotelDTO hotelToHotelDTO(Hotel hotel);
-    Hotel hotelDTOToHotel(HotelDTO hotelDTO);
+    HotelDTO toHotelDTO(Hotel hotel);
+    Hotel toHotel(HotelDTO hotelDTO);
 
     RoomDTO roomToRoomDTO(Room room);
     Room roomDTOToRoom(RoomDTO roomDTO);
@@ -40,8 +40,8 @@ public interface AppMapper {
     PoiDTO poiToPoiDTO(Poi poi);
     Poi poiDTOToPoi(PoiDTO poiDTO);
 
-    List<PoiDTO> poisToPoiDTOs(List<Poi> pois);
-    List<Poi> poiDTOsToPois(List<PoiDTO> poiDTOs);
+    List<PoiDTO> poisToPoisDTO(List<Poi> pois);
+    List<Poi> poisDTOToPois(List<PoiDTO> poiDTOs);
 
     List<RoomDTO> roomsToRoomDTOs(List<Room> rooms);
     List<Room> roomDTOsToRooms(List<RoomDTO> roomDTOs);
@@ -49,8 +49,8 @@ public interface AppMapper {
     List<BookingDTO> bookingsToBookingDTOs(List<Booking> bookings);
     List<Booking> bookingDTOsToBookings(List<BookingDTO> bookingDTOs);
 
-    List<HotelDTO> hotelsToHotelDTOs(List<Hotel> hotels);
-    List<Hotel> hotelDTOsToHotels(List<HotelDTO> hotelDTOs);
+    List<HotelDTO> toHotelDTOs(List<Hotel> hotels);
+    List<Hotel> toHotels(List<HotelDTO> hotelDTOs);
 
     List<ClientDTO> clientsToClientDTOs(List<Client> clients);
     List<Client> clientDTOsToClients(List<ClientDTO> clientDTOs);

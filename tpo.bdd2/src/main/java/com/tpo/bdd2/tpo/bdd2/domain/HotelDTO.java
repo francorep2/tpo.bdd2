@@ -15,8 +15,8 @@ public class HotelDTO {
     private List<String> phone;
     private String email;
     private String cityAreas;
-    private List<PoiDTO> POI;
+    private List<PoiDTO> pois;
     private List<RoomDTO> rooms;
-    private double price;
+    private Double price;
     
 }

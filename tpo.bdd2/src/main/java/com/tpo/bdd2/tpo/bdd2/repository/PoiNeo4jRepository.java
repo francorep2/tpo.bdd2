@@ -8,4 +8,5 @@ import com.tpo.bdd2.tpo.bdd2.model.Poi;
 @Repository
 public interface PoiNeo4jRepository extends Neo4jRepository<Poi, String> {
 
+
 }

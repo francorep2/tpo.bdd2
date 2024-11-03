@@ -16,7 +16,7 @@ public interface IHotelService {
 
     void deleteHotel(String id);
 
-    void addRoomToHotel(String hotelId, RoomDTO roomDTO);
+    void addRoomToHotel(String hotelId, String roomId);
 
     void removeRoomFromHotel(String hotelId, String roomId);
 
@@ -30,6 +30,6 @@ public interface IHotelService {
 
     List<RoomDTO> getAllRoomsByHotelId(String hotelId);
 
-    List<HotelDTO> getHotelsByPOI(String poiName);
+    List<HotelDTO> getAllHotelsBypoiName(String poiName);
 
 }

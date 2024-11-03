@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Node
 @AllArgsConstructor
+@NoArgsConstructor
 public class Hotel {
 
     @Schema(description = "Hotel ID ", example = "1")
@@ -40,13 +41,13 @@ public class Hotel {
 
     @Schema(description = "Puntos de interes Hotel", example = "Hotel poi")
     @Relationship(type = "HAS_POI")
-    private List<Poi> POI;
+    private List<Poi> pois;
 
     @Schema(description = "Habitaciones Hotel", example = "Hotel rooms")
     @Relationship(type = "HAS_ROOM")
     private List<Room> rooms;
 
     @Schema(description = "Precio Hotel", example = "Hotel price")
-    private double price;
+    private Double price;
 
 }

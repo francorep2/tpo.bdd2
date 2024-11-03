@@ -59,9 +59,9 @@ public class HotelRestController {
 
     @Operation(summary = "Agregar habitacion a Hotel")
     @ApiResponse(responseCode = "200", description = "Habitacion agregada")
-    @PostMapping("/{hotelId}/rooms")
-    public  ResponseEntity<Void> addRoomToHotel(@PathVariable("hotelId") String hotelId, @RequestBody RoomDTO roomDTO){
-        hotelService.addRoomToHotel(hotelId, roomDTO);
+    @PostMapping("/{hotelId}/rooms/{roomId}")
+    public  ResponseEntity<Void> addRoomToHotel(@PathVariable("hotelId") String hotelId, @PathVariable("roomId") String roomId){
+        hotelService.addRoomToHotel(hotelId, roomId);
         return ResponseEntity.ok().build();
     }
 
@@ -89,9 +89,9 @@ public class HotelRestController {
 
     @Operation(summary = "Obtener todos los hoteles por POI")
     @ApiResponse(responseCode = "200", description = "Hoteles encontrados")
-    @GetMapping("/by-pois/{poiname}")
-    public List<HotelDTO> getHotelsByPOI(@PathVariable String poiname){
-        return hotelService.getHotelsByPOI(poiname);
+    @GetMapping("/by-pois/{poiName}")
+    public List<HotelDTO> getHotelsBypoiName(@PathVariable String poiName){
+        return hotelService.getAllHotelsBypoiName(poiName);
     }
 
     @Operation(summary = "Obtener todos los POIs de un hotel")
@@ -100,5 +100,22 @@ public class HotelRestController {
     public List<PoiDTO> getAllPoiInHotel(@PathVariable("hotelId") String hotelId){
         return hotelService.getAllPoiInHotel(hotelId);
     }
+
+    @Operation(summary = "Agregar POI a un hotel")
+    @ApiResponse(responseCode = "200", description = "POI agregado")
+    @PostMapping("/{hotelId}/pois")
+    public ResponseEntity<Void> addPOIToHotel(@PathVariable("hotelId") String hotelId, @RequestBody PoiDTO poiDTO){
+        hotelService.addPOIToHotel(hotelId, poiDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Eliminar POI de un hotel")
+    @ApiResponse(responseCode = "204", description = "POI eliminado")
+    @DeleteMapping("/{hotelId}/pois/{poiId}")
+    public ResponseEntity<Void> removePOIFromHotel(@PathVariable("hotelId") String hotelId, @PathVariable("poiId") String poiId){
+        hotelService.removePOIFromHotel(hotelId, poiId);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
