@@ -14,11 +14,11 @@ import com.tpo.bdd2.tpo.bdd2.model.Room;
 public interface RoomNeo4jRepository extends Neo4jRepository<Room, String> {
 
     @Query("""
-        MATCH (r:Room)
+        MATCH (ro:Room)<-[r:HAS-ROOM]-(h:Hotel)
         WHERE r.isAvaible = true
         AND r.availableFrom <= $startDate
         AND r.availableUntil >= $endDate
-        RETURN r
+        RETURN ro,r,h
     """)
     List<Room> findRoomByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 

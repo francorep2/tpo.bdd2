@@ -18,21 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 @Document(collection = "Bookings")
 public class Booking {
 
-    @Schema(description = "ID de reserva", example = "1")
-    @Id
-    @Field("Booking_ID")
-    private String id;
-
     @Schema(description = "ID del cliente", example = "1")
     @Field("Client_ID")
-    private String bookClientId;
+    private String clientId;
 
     @Schema(description = "ID del hotel", example = "1")
     @Field("Hotel_ID")
-    private String bookHotelId;
+    private String hotelId;
 
     @Schema(description = "Código de reserva", example = "BC-1111")
     @Field("Code_Confirmation_Number")
+    @Id
     private String confirmationNumber;
 
     @Schema(description = "Fecha de reserva", example = "2024-10-25")

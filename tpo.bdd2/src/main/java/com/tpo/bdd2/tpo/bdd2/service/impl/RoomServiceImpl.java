@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tpo.bdd2.tpo.bdd2.domain.HotelDTO;
+import com.tpo.bdd2.tpo.bdd2.domain.HotelWithAvailableRoomsDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 import com.tpo.bdd2.tpo.bdd2.exception.HotelNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.exception.RoomNotFoundException;
@@ -92,17 +94,28 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId) {
+    public HotelWithAvailableRoomsDTO findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId) {
         Hotel hotel = hotelNeo4jRepository.findById(hotelId)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
-            List<Room> rooms = hotel.getRooms();
-     
-        List<Room> availableRooms = rooms.stream().filter(room -> isRoomAvailable(room, startDate, endDate))
-        .collect(Collectors.toList());
+        
+        List<Room> rooms = hotel.getRooms();
+        
+        List<Room> availableRooms = rooms.stream()
+            .filter(room -> isRoomAvailable(room, startDate, endDate))
+            .collect(Collectors.toList());
+        
+        HotelDTO hotelDTO = mapper.toHotelDTO(hotel); // Convierte el hotel a DTO
 
-        return availableRooms.stream().map(mapper::roomToRoomDTO)
-        .collect(Collectors.toList());
+        // Crea el DTO de respuesta
+        HotelWithAvailableRoomsDTO response = new HotelWithAvailableRoomsDTO();
+        response.setHotel(hotelDTO);
+        response.setAvailableRooms(availableRooms.stream()
+            .map(mapper::roomToRoomDTO)
+            .collect(Collectors.toList()));
+
+        return response;
     }
+
 
     private boolean isRoomAvailable(Room room, LocalDate startDate, LocalDate endDate) {
     LocalDate availableFrom = room.getAvailableFrom();

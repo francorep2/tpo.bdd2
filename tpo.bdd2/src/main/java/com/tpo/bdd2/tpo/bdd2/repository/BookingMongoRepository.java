@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.tpo.bdd2.tpo.bdd2.model.Booking;
@@ -13,13 +12,10 @@ import com.tpo.bdd2.tpo.bdd2.model.Booking;
 public interface BookingMongoRepository extends MongoRepository<Booking, String> {
 
 
-    @Query("{ 'bookingCode': ?0 }")
     List<Booking> findByConfirmationNumber(String confirmationNumber);
 
-    @Query("{ 'clientId': ?0 }")
-    List<Booking> findByGuestId(String guestId);
-
-    @Query("{ 'bookingDate': ?0 }")
+    List<Booking> findByClientId(String clientId);
+    
     List<Booking> findByBookingDate(LocalDate bookingDate);
 
 

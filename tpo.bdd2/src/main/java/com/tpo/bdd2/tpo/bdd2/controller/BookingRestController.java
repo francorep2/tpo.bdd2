@@ -28,32 +28,25 @@ public class BookingRestController {
 
     @Operation(summary = "Crear reserva")
     @ApiResponse(responseCode = "201", description = "Reserva creada")
-    @PostMapping    
-    public BookingDTO createBooking(@RequestBody BookingDTO bookingDTO) {
-        return bookingService.createBooking(bookingDTO);
+    @PostMapping("/{clientId}/{hotelId}/{roomId}")
+    public BookingDTO createBooking(@PathVariable("clientId") String clientId,@PathVariable("hotelId") String hotelId,@PathVariable("roomId") String roomId) {
+        return bookingService.createBooking(clientId,hotelId,roomId);
     }
     
     @Operation(summary = "Actualizar reserva por Id")
     @ApiResponse(responseCode = "200", description = "Reserva actualizada")
-    @PutMapping("/{bookId}")
-    public BookingDTO updateBooking(@PathVariable("bookId") String bookId, @RequestBody BookingDTO bookingDTO) {
-        return bookingService.updateBooking(bookId, bookingDTO);
+    @PutMapping("/{confirmationNumber}")
+    public BookingDTO updateBooking(@PathVariable("confirmationNumber") String confirmationNumber, @RequestBody BookingDTO bookingDTO) {
+        return bookingService.updateBooking(confirmationNumber, bookingDTO);
     }
     
     @Operation(summary = "Eliminar reserva por Id")
     @ApiResponse(responseCode = "204", description = "Reserva eliminada")
-    @DeleteMapping("/{bookId}")
-    public void deleteBooking(@PathVariable("bookId") String bookId) {
-        bookingService.deleteBooking(bookId);
+    @DeleteMapping("/{confirmationNumber}")
+    public void deleteBooking(@PathVariable("confirmationNumber") String confirmationNumber) {
+        bookingService.deleteBooking(confirmationNumber);
     }
     
-    @Operation(summary = "Obtener reserva por Id")
-    @ApiResponse(responseCode = "200", description = "Reserva encontrada")
-    @GetMapping("/{bookId}")
-    public Booking getBookingById(@PathVariable("bookId") String bookId) {
-        return bookingService.getBookingById(bookId);
-    }
-
     @Operation(summary = "Obtener todas las reservas")
     @ApiResponse(responseCode = "200", description = "Lista de reservas encontradas")
     @GetMapping
@@ -73,13 +66,6 @@ public class BookingRestController {
     @GetMapping("/confirmation/{confirmationNumber}")
     public List<BookingDTO> findBookingsByConfirmationNumber(@PathVariable String confirmationNumber) {
         return bookingService.findBookingsByConfirmationNumber(confirmationNumber);
-    }
-
-    @Operation(summary = "Obtener reservas por ID de huésped")
-    @ApiResponse(responseCode = "200", description = "Lista de reservas encontradas")
-    @GetMapping("/guest/{guestId}")
-    public List<BookingDTO> findBookingsByGuestId(@PathVariable("guestId") String guestId) {
-        return bookingService.findBookingsByGuestId(guestId);
     }
 
     @Operation(summary = "Obtener reservas por fecha de reserva")

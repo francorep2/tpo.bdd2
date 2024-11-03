@@ -3,6 +3,7 @@ package com.tpo.bdd2.tpo.bdd2.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.tpo.bdd2.tpo.bdd2.domain.HotelWithAvailableRoomsDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 
 public interface IRoomService {
@@ -23,6 +24,6 @@ public interface IRoomService {
 
     List<String> getAllAmenitiesByRoomId(String id);
 
-    List<RoomDTO> findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId);
+    HotelWithAvailableRoomsDTO findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId);
 
 }

@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tpo.bdd2.tpo.bdd2.domain.BookingDTO;
-import com.tpo.bdd2.tpo.bdd2.exception.BookingAlreadyExistsException;
 import com.tpo.bdd2.tpo.bdd2.exception.ClientNotFoundException;
+import com.tpo.bdd2.tpo.bdd2.exception.HotelNotFoundException;
 import com.tpo.bdd2.tpo.bdd2.mapper.AppMapper;
 import com.tpo.bdd2.tpo.bdd2.model.Booking;
 import com.tpo.bdd2.tpo.bdd2.model.Client;
+import com.tpo.bdd2.tpo.bdd2.model.Hotel;
+import com.tpo.bdd2.tpo.bdd2.model.Room;
 import com.tpo.bdd2.tpo.bdd2.repository.BookingMongoRepository;
 import com.tpo.bdd2.tpo.bdd2.repository.ClientNeo4jRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.HotelNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IBookingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,30 +35,39 @@ public class BookingServiceImpl implements IBookingService{
     @Autowired
     private ClientNeo4jRepository clientNeo4jRepository;
 
+    @Autowired
+    private HotelNeo4jRepository hotelNeo4jRepository;
+
     @Override
-    public BookingDTO createBooking(BookingDTO bookingDTO) {
-        Optional<Client> clientOptional = clientNeo4jRepository.findById(bookingDTO.getBookClientId());
-        if (!clientOptional.isPresent()) {
-        }
-        
-        Optional<Booking> bookingOptional = bookingMongoRepository.findById(bookingDTO.getId());
-        if (bookingOptional.isPresent()) {
-            throw new BookingAlreadyExistsException("Booking already exist");
-        }
+    public BookingDTO createBooking(String clientId, String hotelId,String roomId) {
 
-        Booking newBooking = mapper.bookingDTOToBooking(bookingDTO);
-        newBooking.setConfirmationNumber("BC-" + System.currentTimeMillis());
+        Booking newBooking = new Booking(null, null, null, null, null, null, 0);
+
+        Hotel hotel = hotelNeo4jRepository.findById(hotelId)
+                .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
+
+        newBooking.setHotelId(hotel.getId());
+        newBooking.setClientId(clientId);
+        newBooking.setBookingDate(LocalDate.now());
+        for (Room r : hotel.getRooms()) {
+            if (r.getRoomId().equals(roomId)) {
+                newBooking.setBookingPrice(r.getPrice());
+                newBooking.setCheckOutDate(r.getAvailableUntil());
+                newBooking.setCheckInDate(r.getAvailableFrom());
+
+                break;
+            }
+        }
+        newBooking.setConfirmationNumber("BC-" + System.currentTimeMillis());        
         Booking savedBooking = bookingMongoRepository.save(newBooking);
-
-        log.info("Booking with id {} updated successfully.", bookingDTO.getId());
         return mapper.bookingToBookingDTO(savedBooking);
 
     }
 
     @Override
-    public BookingDTO updateBooking(String id, BookingDTO bookingDTO) {
+    public BookingDTO updateBooking(String confirmationNumber, BookingDTO bookingDTO) {
         
-        Optional<Booking> bookingOptional = bookingMongoRepository.findById(id);
+        Optional<Booking> bookingOptional = bookingMongoRepository.findById(confirmationNumber);
         if (!bookingOptional.isPresent()) {
             throw new ClientNotFoundException();
         }
@@ -65,14 +77,14 @@ public class BookingServiceImpl implements IBookingService{
         booking.setBookingPrice(bookingDTO.getBookingPrice());
         booking.setCheckInDate(bookingDTO.getCheckInDate());
         booking.setCheckOutDate(bookingDTO.getCheckOutDate());
-        booking.setBookHotelId(bookingDTO.getBookHotelId());
+        booking.setHotelId(bookingDTO.getHotelId());
         booking.setBookingDate(bookingDTO.getBookingDate());
-        booking.setBookClientId(bookingDTO.getBookClientId());
+        booking.setClientId(bookingDTO.getClientId());
         
 
         Booking savedBooking = bookingMongoRepository.save(booking);
 
-        log.info("Booking with id {} updated successfully.", id);
+        log.info("Booking with id {} updated successfully.", confirmationNumber);
         return mapper.bookingToBookingDTO(savedBooking);
     }
 
@@ -86,18 +98,6 @@ public class BookingServiceImpl implements IBookingService{
         bookingMongoRepository.deleteById(id);
         log.info("Booking with id {} deleted successfully.", id);
     }
-
-    @Override
-    public Booking getBookingById(String id) {
-        Optional<Booking> bookingOptional = bookingMongoRepository.findById(id);
-        if (!bookingOptional.isPresent()) {
-            throw new ClientNotFoundException();
-        }
-
-        log.info("Booking with id {} retrieved successfully.", id);
-        return bookingOptional.get();
-    }
-
     @Override
     public List<Booking> getAllBookings() {
         log.info("All bookings retrieved successfully.");
@@ -112,18 +112,12 @@ public class BookingServiceImpl implements IBookingService{
         }
 
         log.info("Bookings for client with id {} retrieved successfully.", clientId);
-        return bookingMongoRepository.findByGuestId(clientId.toString());
+        return bookingMongoRepository.findByClientId(clientId);
     }
 
     @Override
     public List<BookingDTO> findBookingsByConfirmationNumber(String confirmationNumber) {
         List<Booking> bookings = bookingMongoRepository.findByConfirmationNumber(confirmationNumber);
-        return mapper.bookingsToBookingDTOs(bookings);
-    }
-
-    @Override
-    public List<BookingDTO> findBookingsByGuestId(String guestId) {
-        List<Booking> bookings = bookingMongoRepository.findByGuestId(guestId);
         return mapper.bookingsToBookingDTOs(bookings);
     }
 

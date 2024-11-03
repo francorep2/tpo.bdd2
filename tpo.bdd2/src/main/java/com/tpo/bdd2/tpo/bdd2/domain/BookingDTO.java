@@ -11,11 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 public class BookingDTO {
 
-    private String id;
+    private String clientId;
 
-    private String bookClientId;
-
-    private String bookHotelId;
+    private String hotelId;
 
     private String confirmationNumber;
 

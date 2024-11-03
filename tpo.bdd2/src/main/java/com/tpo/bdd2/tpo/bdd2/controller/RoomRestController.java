@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tpo.bdd2.tpo.bdd2.domain.HotelWithAvailableRoomsDTO;
 import com.tpo.bdd2.tpo.bdd2.domain.RoomDTO;
 import com.tpo.bdd2.tpo.bdd2.service.IRoomService;
 
@@ -81,7 +82,7 @@ public class RoomRestController {
     @Operation(summary = "Obtener habitaciones disponibles por rango de fechas")
     @ApiResponse(responseCode = "200", description = "Habitaciones disponibles encontradas")
     @GetMapping("/{hotelId}/room-available")
-    public List<RoomDTO> findRoomByDateRange( @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, @PathVariable("hotelId") String hotelId){
+    public HotelWithAvailableRoomsDTO findRoomByDateRange( @RequestParam("startDate") LocalDate startDate, @RequestParam("endDate") LocalDate endDate, @PathVariable("hotelId") String hotelId){
         return roomService.findRoomByDateRange(startDate, endDate, hotelId);
     }
 
