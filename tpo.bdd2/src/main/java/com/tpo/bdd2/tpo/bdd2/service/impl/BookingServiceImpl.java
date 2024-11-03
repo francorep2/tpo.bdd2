@@ -18,6 +18,7 @@ import com.tpo.bdd2.tpo.bdd2.model.Room;
 import com.tpo.bdd2.tpo.bdd2.repository.BookingMongoRepository;
 import com.tpo.bdd2.tpo.bdd2.repository.ClientNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.repository.HotelNeo4jRepository;
+import com.tpo.bdd2.tpo.bdd2.repository.RoomNeo4jRepository;
 import com.tpo.bdd2.tpo.bdd2.service.IBookingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,9 @@ public class BookingServiceImpl implements IBookingService{
     @Autowired
     private HotelNeo4jRepository hotelNeo4jRepository;
 
+    @Autowired
+    private RoomNeo4jRepository  roomNeo4jRepository;
+
     @Override
     public BookingDTO createBooking(String clientId, String hotelId,String roomId) {
 
@@ -45,6 +49,10 @@ public class BookingServiceImpl implements IBookingService{
 
         Hotel hotel = hotelNeo4jRepository.findById(hotelId)
                 .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
+
+        if (hotel.getRooms().stream().noneMatch(room -> room.getRoomId().equals(roomId))) {
+            throw new HotelNotFoundException("Room not found");
+        }
 
         newBooking.setHotelId(hotel.getId());
         newBooking.setClientId(clientId);
@@ -60,6 +68,13 @@ public class BookingServiceImpl implements IBookingService{
         }
         newBooking.setConfirmationNumber("BC-" + System.currentTimeMillis());        
         Booking savedBooking = bookingMongoRepository.save(newBooking);
+
+        Room room = roomNeo4jRepository.findById(roomId)
+        .orElseThrow(() -> new HotelNotFoundException("Room not found"));
+
+        room.setIsAvailable(false);
+        roomNeo4jRepository.save(room);
+
         return mapper.bookingToBookingDTO(savedBooking);
 
     }

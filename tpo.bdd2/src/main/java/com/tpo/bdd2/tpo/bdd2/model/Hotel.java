@@ -27,7 +27,7 @@ public class Hotel {
     private String name;
 
     @Schema(description = "Descripcion Hotel", example = "Hotel Description")
-    @Relationship(type = "LOCATE_IN")
+    @Relationship(type = "LOCATE_AT")
     private Address address;
 
     @Schema(description = "Telefono Hotel", example = "Hotel Phone")

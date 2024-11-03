@@ -1,0 +1,90 @@
+// Creación de direcciones para los hoteles
+CREATE (addr1:Address {id: "1", street: "Main St", number: "100", city: "CityA", state: "StateA", postalCode: "12345", country: "CountryA"})
+CREATE (addr2:Address {id: "2", street: "Second St", number: "200", city: "CityB", state: "StateB", postalCode: "23456", country: "CountryA"})
+CREATE (addr3:Address {id: "3", street: "Third St", number: "300", city: "CityC", state: "StateA", postalCode: "34567", country: "CountryA"})
+CREATE (addr4:Address {id: "4", street: "Fourth St", number: "400", city: "CityD", state: "StateB", postalCode: "45678", country: "CountryA"})
+CREATE (addr5:Address {id: "5", street: "Fifth St", number: "500", city: "CityE", state: "StateA", postalCode: "56789", country: "CountryA"})
+
+// Creación de direcciones para los clientes
+CREATE (addr6:Address {id: "6", street: "Sixth St", number: "600", city: "CityF", state: "StateC", postalCode: "67890", country: "CountryA"})
+CREATE (addr7:Address {id: "7", street: "Seventh St", number: "700", city: "CityG", state: "StateD", postalCode: "78901", country: "CountryA"})
+CREATE (addr8:Address {id: "8", street: "Eighth St", number: "800", city: "CityH", state: "StateC", postalCode: "89012", country: "CountryA"})
+
+// Creación de clientes
+CREATE (client1:Client {id: "C1", name: "Alice", lastName: "Smith", email: "alice@example.com", phone: "123456789"})
+CREATE (client2:Client {id: "C2", name: "Bob", lastName: "Brown", email: "bob@example.com", phone: "987654321"})
+CREATE (client3:Client {id: "C3", name: "Charlie", lastName: "Davis", email: "charlie@example.com", phone: "555123456"})
+
+// Relación Client -> Address (LIVES_AT) para las direcciones de los clientes
+CREATE (client1)-[:LIVES_AT]->(addr6)
+CREATE (client2)-[:LIVES_AT]->(addr7)
+CREATE (client3)-[:LIVES_AT]->(addr8)
+
+// Creación de hoteles
+CREATE (hotel1:Hotel {id: "H1", name: "Hotel One", email: "contact@hotelone.com", cityAreas: "Downtown", price: 100.0})
+CREATE (hotel2:Hotel {id: "H2", name: "Hotel Two", email: "contact@hoteltwo.com", cityAreas: "Beachfront", price: 150.0})
+CREATE (hotel3:Hotel {id: "H3", name: "Hotel Three", email: "contact@hotelthree.com", cityAreas: "Suburban", price: 120.0})
+CREATE (hotel4:Hotel {id: "H4", name: "Hotel Four", email: "contact@hotelfour.com", cityAreas: "Countryside", price: 130.0})
+CREATE (hotel5:Hotel {id: "H5", name: "Hotel Five", email: "contact@hotelfive.com", cityAreas: "City Center", price: 140.0})
+
+// Relación Hotel -> Address (LOCATE_AT) para las direcciones de los hoteles
+CREATE (hotel1)-[:LOCATE_AT]->(addr1)
+CREATE (hotel2)-[:LOCATE_AT]->(addr2)
+CREATE (hotel3)-[:LOCATE_AT]->(addr3)
+CREATE (hotel4)-[:LOCATE_AT]->(addr4)
+CREATE (hotel5)-[:LOCATE_AT]->(addr5)
+
+// Creación de POIs
+CREATE (poi1:Poi {poiId: "P1", poiName: "Museum", poiDescription: "Art Museum", poiDistance: "1km"})
+CREATE (poi2:Poi {poiId: "P2", poiName: "Park", poiDescription: "City Park", poiDistance: "500m"})
+CREATE (poi3:Poi {poiId: "P3", poiName: "Mall", poiDescription: "Shopping Mall", poiDistance: "2km"})
+CREATE (poi4:Poi {poiId: "P4", poiName: "Beach", poiDescription: "Beachside", poiDistance: "3km"})
+CREATE (poi5:Poi {poiId: "P5", poiName: "Stadium", poiDescription: "Football Stadium", poiDistance: "4km"})
+
+// Relación Hotel -> POI (HAS_POI)
+CREATE (hotel1)-[:HAS_POI]->(poi1)
+CREATE (hotel1)-[:HAS_POI]->(poi2)
+CREATE (hotel2)-[:HAS_POI]->(poi2)
+CREATE (hotel2)-[:HAS_POI]->(poi3)
+CREATE (hotel3)-[:HAS_POI]->(poi4)
+CREATE (hotel4)-[:HAS_POI]->(poi5)
+CREATE (hotel5)-[:HAS_POI]->(poi1)
+CREATE (hotel5)-[:HAS_POI]->(poi3)
+CREATE (hotel5)-[:HAS_POI]->(poi5)
+
+// Creación de habitaciones exclusivas para cada hotel
+// Hotel 1 - 3 habitaciones
+CREATE (room1_1:Room {roomId: "R1_1", amenities: ["WiFi", "TV"], isAvailable: true, price: 80.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room1_2:Room {roomId: "R1_2", amenities: ["WiFi", "Mini Bar"], isAvailable: true, price: 100.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room1_3:Room {roomId: "R1_3", amenities: ["WiFi", "Balcony"], isAvailable: false, price: 90.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (hotel1)-[:HAS_ROOM]->(room1_1)
+CREATE (hotel1)-[:HAS_ROOM]->(room1_2)
+CREATE (hotel1)-[:HAS_ROOM]->(room1_3)
+
+// Hotel 2 - 2 habitaciones
+CREATE (room2_1:Room {roomId: "R2_1", amenities: ["TV", "Mini Bar"], isAvailable: true, price: 110.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room2_2:Room {roomId: "R2_2", amenities: ["Balcony", "Jacuzzi"], isAvailable: true, price: 120.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (hotel2)-[:HAS_ROOM]->(room2_1)
+CREATE (hotel2)-[:HAS_ROOM]->(room2_2)
+
+// Hotel 3 - 3 habitaciones
+CREATE (room3_1:Room {roomId: "R3_1", amenities: ["WiFi", "TV"], isAvailable: true, price: 85.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room3_2:Room {roomId: "R3_2", amenities: ["WiFi", "Mini Bar"], isAvailable: false, price: 95.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room3_3:Room {roomId: "R3_3", amenities: ["Balcony", "TV"], isAvailable: true, price: 105.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (hotel3)-[:HAS_ROOM]->(room3_1)
+CREATE (hotel3)-[:HAS_ROOM]->(room3_2)
+CREATE (hotel3)-[:HAS_ROOM]->(room3_3)
+
+// Hotel 4 - 2 habitaciones
+CREATE (room4_1:Room {roomId: "R4_1", amenities: ["TV", "Mini Bar"], isAvailable: true, price: 110.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room4_2:Room {roomId: "R4_2", amenities: ["WiFi", "Balcony"], isAvailable: true, price: 115.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (hotel4)-[:HAS_ROOM]->(room4_1)
+CREATE (hotel4)-[:HAS_ROOM]->(room4_2)
+
+// Hotel 5 - 3 habitaciones
+CREATE (room5_1:Room {roomId: "R5_1", amenities: ["WiFi", "TV"], isAvailable: true, price: 95.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room5_2:Room {roomId: "R5_2", amenities: ["Mini Bar", "Balcony"], isAvailable: false, price: 105.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (room5_3:Room {roomId: "R5_3", amenities: ["Jacuzzi", "WiFi"], isAvailable: true, price: 120.0, availableFrom: date("2023-11-01"), availableUntil: date("2023-12-01")})
+CREATE (hotel5)-[:HAS_ROOM]->(room5_1)
+CREATE (hotel5)-[:HAS_ROOM]->(room5_2)
+CREATE (hotel5)-[:HAS_ROOM]->(room5_3)

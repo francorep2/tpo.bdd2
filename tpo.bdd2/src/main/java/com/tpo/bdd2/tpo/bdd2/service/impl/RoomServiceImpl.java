@@ -97,33 +97,35 @@ public class RoomServiceImpl implements IRoomService {
     public HotelWithAvailableRoomsDTO findRoomByDateRange(LocalDate startDate, LocalDate endDate, String hotelId) {
         Hotel hotel = hotelNeo4jRepository.findById(hotelId)
             .orElseThrow(() -> new HotelNotFoundException("Hotel not found"));
-        
+    
         List<Room> rooms = hotel.getRooms();
-        
+    
         List<Room> availableRooms = rooms.stream()
             .filter(room -> isRoomAvailable(room, startDate, endDate))
             .collect(Collectors.toList());
-        
-        HotelDTO hotelDTO = mapper.toHotelDTO(hotel); // Convierte el hotel a DTO
-
-        // Crea el DTO de respuesta
+    
+        HotelDTO hotelDTO = mapper.toHotelDTO(hotel);
+    
         HotelWithAvailableRoomsDTO response = new HotelWithAvailableRoomsDTO();
         response.setHotel(hotelDTO);
         response.setAvailableRooms(availableRooms.stream()
             .map(mapper::roomToRoomDTO)
             .collect(Collectors.toList()));
-
+    
         return response;
     }
-
-
-    private boolean isRoomAvailable(Room room, LocalDate startDate, LocalDate endDate) {
-    LocalDate availableFrom = room.getAvailableFrom();
-    LocalDate availableUntil = room.getAvailableUntil();
     
-    return (availableFrom.isBefore(endDate) || availableFrom.isEqual(endDate)) &&
-           (availableUntil.isAfter(startDate) || availableUntil.isEqual(startDate));
-}
+    private boolean isRoomAvailable(Room room, LocalDate startDate, LocalDate endDate) {
+        if (Boolean.FALSE.equals(room.getIsAvailable())) {
+            return false; 
+        }
+    
+        LocalDate availableFrom = room.getAvailableFrom();
+        LocalDate availableUntil = room.getAvailableUntil();
+    
+        return (availableFrom.isBefore(endDate) || availableFrom.isEqual(endDate)) &&
+            (availableUntil.isAfter(startDate) || availableUntil.isEqual(startDate));
+    }
 
     @Override
     public List<String> getAllAmenitiesByRoomId(String id) {

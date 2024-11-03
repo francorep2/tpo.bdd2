@@ -27,15 +27,16 @@ public class Room {
     private List<String> amenities;
 
     @Schema(description = "Disponibilidad", example = "true")
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     @Schema(description = "Precio", example = "1000")
-    private double price;
+    private Double price;
 
     @Schema(description = "Disponible desde", example = "2024-10-25")
     private LocalDate availableFrom;
 
     @Schema(description = "Disponible hasta", example = "2024-10-30")
     private LocalDate availableUntil;
+
 
 }

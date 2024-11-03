@@ -32,7 +32,7 @@ public class Client {
     private String phone;
 
     @Schema(description = "Direccion Cliente")
-    @Relationship(type = "LIVES_IN")
+    @Relationship(type = "LIVES_AT")
     private Address address;
 
 }
