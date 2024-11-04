@@ -8,29 +8,15 @@ poi_id = 10
 client_id = 10
 room_id = 10
 address_id = 10
-base_url = "http://localhost:8080/v1"  # Replace with your actual API base URL
+base_url = "http://localhost:8080/v1"
 
 def create_reservation():
     global reservation_id
     client_id = input("\nID del cliente: ")
     hotel_id = input("ID del hotel: ")
-    confirmation_number = input("Numero de confirmacion: ")
-    booking_date = input("Fecha de reserva (YYYY-MM-DD): ")
-    check_in_date = input("Fecha check-in(YYYY-MM-DD): ")
-    check_out_date = input("Fecha check-out (YYYY-MM-DD): ")
-    booking_price = input("Costo de reserva: ")
-    data = {
-        "bookingId": reservation_id,
-        "clientId": client_id,
-        "hotelId": hotel_id,
-        "confirmationNumber": confirmation_number,
-        "bookingDate": booking_date,
-        "checkInDate": check_in_date,
-        "checkOutDate": check_out_date,
-        "bookingPrice": booking_price
-    }
-    response = requests.post(f"{base_url}/reservations", json=data)
-    print("Reservation created:", response.json())
+    room_id = input("ID de la habitacion: ")
+    response = requests.post(f"{base_url}/reservations/{client_id}/{hotel_id}/{room_id}")
+    print("Reserva creada:", response.json())
 
 def create_client():
     global client_id
@@ -223,7 +209,13 @@ def fetch_bookings_cn():
 
 def fetch_poi_hotel():
     id = input("\nIngrese el ID del hotel: ")
-    response = requests.get(f"{base_url}/pois{id}")
+    response = requests.get(f"{base_url}/hotels/pois/{id}")
+    data = response.json()
+    check_null_data(data,response)
+
+def fetch_hotel():
+    id = input("\nIngrese el ID del hotel: ")
+    response = requests.get(f"{base_url}/hotels/{id}")
     data = response.json()
     check_null_data(data,response)
 
@@ -232,24 +224,29 @@ def fetch_amenities():
     response = requests.get(f"{base_url}/rooms/{id}/amenities")
     data = response.json()
     check_null_data(data,response)
-
-def fetch_bookings_date():
-    date = input("\nIngrese la fecha de reserva: ")
-    response = requests.get(f"{base_url}/bookings/date/{date}")
+def fetch_bookings_cn():
+    confirmation_number = input("\nIngrese el numero de confirmacion de la reserva: ")
+    response = requests.get(f"{base_url}/bookings/confirmation/{confirmation_number}")
+    data = response.json()
+    check_null_data(data,response)
+    
+def fetch_bookings_client():
+    id = input("\nIngrese el id del cliente: ")
+    response = requests.get(f"{base_url}/bookings/client/{id}")
     data = response.json()
     check_null_data(data,response)
 
 def fetch_client():
     id = input("\nIngrese el ID del huesped: ")
-    response = requests.get(f"{base_url}/clients{id}")
+    response = requests.get(f"{base_url}/clients/{id}")
     data = response.json()
     check_null_data(data,response)
 
 def fetch_bookins_range():
-    start_date = input("\nIngrese la fecha de inicio: ")
+    start_date = input("\nIngrese la fecha de inicio:YYYY-MM-DD  ")
     end_date = input("\nIngrese la fecha de fin: ")
     id = input("Ingrese el ID del hotel: ")
-    response = requests.get(f"{base_url}/rooms/{id}/room-available")
+    response = requests.get(f"{base_url}/rooms/{id}/room-available?startDate={start_date}&endDate={end_date}")
     data = response.json()
     check_null_data(data,response)
 
@@ -333,13 +330,12 @@ def usecase_opt():
         print("2. Traer puntos de interes cerca a un hotel")
         print("3. Traer amenities de una habitacion")
         print("4. Traer reservas por numero de confirmacion")
-        print("5. Traer reservas de un huesped")
         print("5. Traer reservas por fecha de reserva en el hotel")
         print("6. Traer detalles de huesped")
-        print("7. Traer reservas por fecha de reserva en el hotel")
-        print("7. Traer hotel")
-        print("8. Dar de alta huesped")
-        print("9. Salir")
+        print("7. Traer reservas por rango de fecha en el hotel")
+        print("8. Traer hotel")
+        print("9. Traer reservas de huesped")
+        print("0. Salir")
         choice = input("Ingrese una opcion: ")
         
         if choice == "1":
@@ -357,8 +353,10 @@ def usecase_opt():
         elif choice == "7":
             fetch_bookins_range()
         elif choice == "8":
-            fetch_bookings_date()
-        elif choice == "9":
+            fetch_hotel()
+        elif choice == "8":
+            fetch_bookings_client()
+        elif choice == "0":
             print("Saliendo...")
             break
         else:
