@@ -70,6 +70,10 @@ def create_hotel():
     email = input("Correo electronico: ")
     city_areas = input("Areas de la ciuidad: ")
     poi = input("Puntos de Interes: ")
+    poi_desc = input("Descripcion del POI: ")
+    poi_distance = input("Distancia del POI: ")
+    start_date = input("\nIngrese la fecha de inicio:YYYY-MM-DD  ")
+    end_date = input("\nIngrese la fecha de fin: ")
     amenities = input("Amenities (separado por coma): ").split(",")
     r_price = input("Precio de habitacion: ")
     while True:
@@ -99,10 +103,12 @@ def create_hotel():
         "phone": [phone_number],
         "email": email,
         "cityAreas": city_areas,
-        "poi": [
+        "pois": [
             {
                 "poiId": poi_id,
-                "poiName": poi
+                "poiName": poi,
+                "poiDescription": poi_desc,
+                "poiDistance": poi_distance,
             }
         ],
         "rooms": [
@@ -110,7 +116,9 @@ def create_hotel():
                 "roomId": room_id,
                 "amenities": amenities,
                 "price": r_price,
-                "available": availability
+                "isAvailable": availability,
+                "availableFrom": start_date,
+                "availableUntil": end_date,
             }
         ],
         "price": price
@@ -167,16 +175,21 @@ def delete_room():
     print("Habitacion eliminada!", response.status_code)
 
 def update_reservation():
-    reservation_id = input("Enter reservation ID to update: ")
-    guest_name = input("Enter new guest name: ")
-    room_type = input("Enter new room type: ")
-    check_in_date = input("Enter new check-in date (YYYY-MM-DD): ")
-    check_out_date = input("Enter new check-out date (YYYY-MM-DD): ")
+    reservation_id = input("Ingrese el numero de confirmacion: ")
+    client_id = input("Ingrese el ID del CLiente: ")
+    hotel_id = input("Ingrese el ID del hotel: ") 
+    booking_date = input("Ingrese la fecha de reserva (YYYY-MM-DD): ")
+    check_in_date = input("Ingrese la fecha de check-in (YYYY-MM-DD): ")
+    check_out_date = input("Ingrese la fecha de check-out (YYYY-MM-DD): ")
+    booking_price = input("Ingrese el precio de la reserva: ")
     data = {
-        "guestName": guest_name,
-        "roomType": room_type,
-        "checkInDate": check_in_date,
-        "checkOutDate": check_out_date
+            "confirmationNumber": reservation_id,
+            "clientId": client_id,
+            "hotelId": hotel_id,
+            "bookingDate": booking_date,
+            "checkInDate": check_in_date,
+            "checkOutDate": check_out_date,
+            "bookingPrice": booking_price
     }
     response = requests.put(f"{base_url}/reservations/{reservation_id}", json=data)
     print("Reservation updated:", response.json())
