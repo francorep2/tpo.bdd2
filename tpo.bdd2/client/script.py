@@ -15,12 +15,12 @@ def create_reservation():
     client_id = input("\nID del cliente: ")
     hotel_id = input("ID del hotel: ")
     room_id = input("ID de la habitacion: ")
-    response = requests.post(f"{base_url}/reservations/{client_id}/{hotel_id}/{room_id}")
+    response = requests.post(f"{base_url}/bookings4/{client_id}/{hotel_id}/{room_id}")
     print("Reserva creada:", response.json())
 
 def create_client():
     global client_id
-    client_id+=1
+    client_id = input("Ingrese el ID del cliente: ")
     client_name = input("Ingrese el nombre del cliente: ")
     client_lastname = input("Apellido: ")
     client_email = input("Correo electronico: ")
@@ -33,9 +33,9 @@ def create_client():
     country_name = input("Nombre del pais: ")
    
     data = {
-        "clientId": client_id,
+        "id": client_id,
         "name": client_name,
-        "lastname": client_lastname,
+        "lastName": client_lastname,
         "email": client_email,
         "phone": phone_number,
         "address": {
@@ -54,10 +54,11 @@ def create_client():
 def create_hotel():
     global hotel_id, poi_id, address_id,room_id
 
-    hotel_id += 1 
-    poi_id += 1 
-    address_id += 1 
-    room_id += 1
+    
+    id = input("Ingrese el ID del hotel: ")
+    poi_id = input("Ingrese el ID del POI: ")
+    address_id = input("Ingrese el ID de la direccion: ")
+    room_id = input("Ingrese el ID de la habitacion: ")
     hotel_name = input("Ingrese el nombre del hotel ")
     street_name = input("Nombre de calle: ")
     street_number = input("Numero de calle: ")
@@ -84,7 +85,7 @@ def create_hotel():
     price = input("Precio: ")
 
     data = {
-        "id": hotel_id,
+        "id": id,
         "name": hotel_name,
         "address": {
             "id": address_id,
@@ -118,11 +119,11 @@ def create_hotel():
     print("Hotel agregado:", response.json())
 
 def create_room():
-    global room_id
-    room_id += 1
-    
+    room_id = input("Ingrese el ID de la habitacion: ")
     amenities = input("Amenities de la habitacion(separado por coma): ").split(",")
     r_price = input("Precio de habitacion: ")
+    start_date = input("\nIngrese la fecha de inicio:YYYY-MM-DD  ")
+    end_date = input("\nIngrese la fecha de fin: ")
     while True:
         opt = input("Esta disponible? Y/N: ")
         if opt =="Y":
@@ -133,16 +134,17 @@ def create_room():
             break
         else:
             print("Opcion invalida. Elija nuevamente\n")
-    price = input("Precio: ")
 
     data = {
         "roomId": room_id,
         "amenities": amenities,
+        "isAvailable": availability,
         "price": r_price,
-        "available": availability
+        "availableFrom": start_date,
+        "availableUntil": end_date
     }
     response = requests.post(f"{base_url}/rooms", json=data)
-    print("Hotel agregado:", response.json())
+    print("Habitacion agregada:", response.json())
 
 def delete_hotel():
     id = input("Ingrese el ID del hotel a eliminar: ")
@@ -232,10 +234,16 @@ def fetch_bookings_cn():
     
 def fetch_bookings_client():
     id = input("\nIngrese el id del cliente: ")
-    response = requests.get(f"{base_url}/bookings/client/{id}")
+    response = requests.get(f"{base_url}/bookings/client1/{id}")
     data = response.json()
     check_null_data(data,response)
 
+def fetch_bookings_date():
+    date = input("\nIngrese la fecha(YYYY-MM-DD): ")
+    response = requests.get(f"{base_url}/bookings/date/{date}")
+    data = response.json()
+    check_null_data(data,response)
+    
 def fetch_client():
     id = input("\nIngrese el ID del huesped: ")
     response = requests.get(f"{base_url}/clients/{id}")
@@ -332,7 +340,7 @@ def usecase_opt():
         print("4. Traer reservas por numero de confirmacion")
         print("5. Traer reservas por fecha de reserva en el hotel")
         print("6. Traer detalles de huesped")
-        print("7. Traer reservas por rango de fecha en el hotel")
+        print("7. Traer habitacion por rango de fecha en el hotel")
         print("8. Traer hotel")
         print("9. Traer reservas de huesped")
         print("0. Salir")

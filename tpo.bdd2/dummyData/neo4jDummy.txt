@@ -21,11 +21,11 @@ CREATE (client2)-[:LIVES_AT]->(addr7)
 CREATE (client3)-[:LIVES_AT]->(addr8)
 
 // Creación de hoteles
-CREATE (hotel1:Hotel {id: "H1", name: "Hotel One",phone:"+54 111111111", email: "contact@hotelone.com", cityAreas: "Downtown", price: 100.0})
-CREATE (hotel2:Hotel {id: "H2", name: "Hotel Two",phone:"+54 222222222", email: "contact@hoteltwo.com", cityAreas: "Beachfront", price: 150.0})
-CREATE (hotel3:Hotel {id: "H3", name: "Hotel Three",phone:"+54 33333333", email: "contact@hotelthree.com", cityAreas: "Suburban", price: 120.0})
-CREATE (hotel4:Hotel {id: "H4", name: "Hotel Four",phone:"+54 44444444", email: "contact@hotelfour.com", cityAreas: "Countryside", price: 130.0})
-CREATE (hotel5:Hotel {id: "H5", name: "Hotel Five",phone:"+54 55555555", email: "contact@hotelfive.com", cityAreas: "City Center", price: 140.0})
+CREATE (hotel1:Hotel {id: "H1", name: "Hotel One", email: "contact@hotelone.com", cityAreas: "Downtown", price: 100.0})
+CREATE (hotel2:Hotel {id: "H2", name: "Hotel Two", email: "contact@hoteltwo.com", cityAreas: "Beachfront", price: 150.0})
+CREATE (hotel3:Hotel {id: "H3", name: "Hotel Three", email: "contact@hotelthree.com", cityAreas: "Suburban", price: 120.0})
+CREATE (hotel4:Hotel {id: "H4", name: "Hotel Four", email: "contact@hotelfour.com", cityAreas: "Countryside", price: 130.0})
+CREATE (hotel5:Hotel {id: "H5", name: "Hotel Five", email: "contact@hotelfive.com", cityAreas: "City Center", price: 140.0})
 
 // Relación Hotel -> Address (LOCATE_AT) para las direcciones de los hoteles
 CREATE (hotel1)-[:LOCATE_AT]->(addr1)
